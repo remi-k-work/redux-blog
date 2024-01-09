@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // posts logic & slice
-import { postAdded } from "../postsSlice";
+import { postAdded, addNewPost } from "../postsSlice";
 
 // users logic & slice
 import { selectAllUsers } from "../../users/usersSlice";
@@ -18,8 +18,9 @@ export default function AddPostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [userId, setUserId] = useState("");
+  const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
-  // Global state coming from redux
+  // Global state & dispatch coming from redux
   const users = useSelector(selectAllUsers);
   const dispatch = useDispatch();
 
@@ -39,20 +40,30 @@ export default function AddPostForm() {
   }
 
   // Handle a save post click
-  function handleSavePostClick(ev) {
-    // Ensure that both the title and the content are provided
-    if (title && content) {
-      // A new post has been added by the user
-      dispatch(postAdded(title, content, userId));
+  async function handleSavePostClick(ev) {
+    // It would be helpful if we could deactivate the "Save Post" button while we wait for the request,
+    // so that the user does not unintentionally try to save a post twice
+    if (canSavePost) {
+      try {
+        setAddRequestStatus("pending");
+        // A new post has been added by the user
+        await dispatch(addNewPost({ title, content, userId })).unwrap();
+        // dispatch(postAdded(title, content, userId));
 
-      // Clear the form
-      setTitle("");
-      setContent("");
+        // Clear the form
+        setTitle("");
+        setContent("");
+        setUserId("");
+      } catch (error) {
+        console.error("Failed to save the post: ", error);
+      } finally {
+        setAddRequestStatus("idle");
+      }
     }
   }
 
   // Only enable the save post button when all of the fields have been filled out
-  const canSavePost = Boolean(title) && Boolean(content) && Boolean(userId);
+  const canSavePost = [title, content, userId].every(Boolean) && addRequestStatus === "idle";
 
   const usersOptions = users.map((user) => {
     const { id, name } = user;
