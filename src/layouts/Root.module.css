@@ -1,0 +1,14 @@
+.root {
+  min-block-size: 100%;
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1em;
+}
+
+footer {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+}

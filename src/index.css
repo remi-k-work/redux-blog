@@ -102,18 +102,3 @@ button:disabled {
   padding-inline: 1em 1em;
   padding-block: 1em 1em;
 }
-
-.main-grid {
-  min-block-size: 100%;
-  flex: 1;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 1em;
-}
-
-footer {
-  display: flex;
-  gap: 1em;
-  justify-content: center;
-  align-items: center;
-}

@@ -16,8 +16,13 @@ export const addNewPost = createAsyncThunk(
   "posts/addNewPost",
   // The payload creator receives the partial `{title, content, userId}` object
   async (initialPost) => {
+    // Destructure the payload
+    const { title, content, userId } = initialPost;
+
     // We send the initial data to the fake api server
-    const response = await axios.post(POSTS_URL, initialPost);
+    // However, ensure that we are adhering to the server's schema and required data types
+    const reqData = { title: title, body: content, userId: Number(userId) };
+    const response = await axios.post(POSTS_URL, reqData);
 
     // The response includes the complete post object, including the unique id
     return response.data;
@@ -83,7 +88,7 @@ const postsSlice = createSlice({
 
       // Allow the fetched posts to form our array of posts
       state.posts = loadedPosts.map((loadedPost) => {
-        // But only if they agree with our own schema
+        // But only if they agree with our own schema first
         return {
           id: loadedPost.id,
           title: loadedPost.title,
