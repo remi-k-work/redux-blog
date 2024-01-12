@@ -11,10 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 // posts logic & slice
-import { postAdded, addNewPost, selectPostById } from "../postsSlice";
+import { selectPostById } from "../postsSelectors";
+import { postAdded } from "../postsSlice";
+import { updatePost, deletePost } from "../postsThunks";
 
 // users logic & slice
-import { selectAllUsers } from "../../users/usersSlice";
+import { selectAllUsers } from "../../users/usersSelectors";
 
 export default function EditPostForm({ postId }) {
   const navigate = useNavigate();
@@ -60,8 +62,8 @@ export default function EditPostForm({ postId }) {
     if (canSavePost) {
       try {
         setAddRequestStatus("pending");
-        // A new post has been added by the user
-        await dispatch(addNewPost({ title, content, userId })).unwrap();
+        // The user updated the current post
+        await dispatch(updatePost({ postId, title, content, userId })).unwrap();
         // dispatch(postAdded(title, content, userId));
 
         // Clear the form
@@ -80,9 +82,25 @@ export default function EditPostForm({ postId }) {
   }
 
   // Handle a delete post click
-  async function handleDeletePostClick(ev) {}
+  async function handleDeletePostClick(ev) {
+    try {
+      setAddRequestStatus("pending");
+      await dispatch(deletePost({ postId })).unwrap();
 
-  // Only enable the save post button when all of the fields have been filled out
+      // Clear the form
+      setTitle("");
+      setContent("");
+      setUserId("");
+
+      navigate("/posts");
+    } catch (error) {
+      console.error("Failed to delete the post: ", error);
+    } finally {
+      setAddRequestStatus("idle");
+    }
+  }
+
+  // Only activate the save post button after all fields have been filled out and no dispatched requests are pending
   const canSavePost = [title, content, userId].every(Boolean) && addRequestStatus === "idle";
 
   const usersOptions = users.map((user) => {

@@ -8,10 +8,10 @@ import { Provider } from "react-redux";
 import { store } from "./app/store.js";
 
 // posts logic & slice
-import { fetchPosts } from "./features/posts/postsSlice.js";
+import { fetchPosts } from "./features/posts/postsThunks.js";
 
 // users logic & slice
-import { fetchUsers } from "./features/users/usersSlice.js";
+import { fetchUsers } from "./features/users/usersThunks.js";
 
 // We only need to obtain the list of users once, and we want to do it when the program starts
 store.dispatch(fetchPosts());

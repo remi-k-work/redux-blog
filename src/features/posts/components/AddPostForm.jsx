@@ -4,16 +4,22 @@ import styles from "./AddPostForm.module.css";
 // react
 import { useState } from "react";
 
+// rrd imports
+import { useNavigate } from "react-router-dom";
+
 // redux stuff
 import { useSelector, useDispatch } from "react-redux";
 
 // posts logic & slice
-import { postAdded, addNewPost } from "../postsSlice";
+import { postAdded } from "../postsSlice";
+import { addNewPost } from "../postsThunks";
 
 // users logic & slice
-import { selectAllUsers } from "../../users/usersSlice";
+import { selectAllUsers } from "../../users/usersSelectors";
 
 export default function AddPostForm() {
+  const navigate = useNavigate();
+
   // Local state for this component that does not have to be shared
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -54,6 +60,8 @@ export default function AddPostForm() {
         setTitle("");
         setContent("");
         setUserId("");
+
+        navigate("/posts");
       } catch (error) {
         console.error("Failed to save the post: ", error);
       } finally {
@@ -62,7 +70,7 @@ export default function AddPostForm() {
     }
   }
 
-  // Only enable the save post button when all of the fields have been filled out
+  // Only activate the save post button after all fields have been filled out and no dispatched requests are pending
   const canSavePost = [title, content, userId].every(Boolean) && addRequestStatus === "idle";
 
   const usersOptions = users.map((user) => {

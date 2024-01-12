@@ -1,15 +1,8 @@
 // redux stuff
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// other libraries
-import axios from "axios";
-
-const USERS_URL = "https://jsonplaceholder.typicode.com/users";
-
-export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  const response = await axios.get(USERS_URL);
-  return response.data;
-});
+// users logic & slice
+import { fetchUsers } from "./usersThunks";
 
 const initialState = [];
 
@@ -26,11 +19,5 @@ const usersSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { postAdded } = usersSlice.actions;
-
-// Selectors
-export const selectAllUsers = (state) => state.users;
-
-// Find the specific user by its id
-export const selectUserById = (state, userId) => state.users.find((user) => user.id === userId);
 
 export default usersSlice.reducer;

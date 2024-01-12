@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // posts logic & slice
-import { selectPostById } from "../postsSlice";
+import { selectPostById } from "../postsSelectors";
 
 // components
 import PostAuthor from "./PostAuthor";

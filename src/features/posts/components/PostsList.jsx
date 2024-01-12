@@ -5,7 +5,7 @@ import styles from "./PostsList.module.css";
 import { useSelector } from "react-redux";
 
 // posts logic & slice
-import { selectAllPostsOrdered, getPostsStatus, getPostsError } from "../postsSlice";
+import { selectAllPostsOrdered, getPostsStatus, getPostsError } from "../postsSelectors";
 
 // components
 import PostExcerpt from "./PostExcerpt";

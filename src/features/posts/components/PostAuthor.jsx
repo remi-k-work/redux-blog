@@ -5,7 +5,7 @@ import styles from "./PostAuthor.module.css";
 import { useSelector } from "react-redux";
 
 // users logic & slice
-import { selectUserById } from "../../users/usersSlice";
+import { selectUserById } from "../../users/usersSelectors";
 
 export default function PostAuthor({ userId }) {
   // Identify the author of this post using the specified user id
