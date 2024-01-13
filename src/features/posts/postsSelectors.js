@@ -6,8 +6,12 @@ export const selectAllPostsOrdered = (state) =>
   state.posts.posts ? state.posts.posts.slice().sort((a, b) => b.date.localeCompare(a.date)) : state.posts.slice().sort((a, b) => b.date.localeCompare(a.date));
 
 // Select all posts except this one
-export const selectAllButThis = (state, postId) =>
+export const selectAllPostsButThis = (state, postId) =>
   state.posts.posts ? state.posts.posts.filter((post) => post.id !== postId) : state.posts.filter((post) => post.id !== postId);
+
+// Select all posts for a specific user
+export const selectAllPostsForUser = (state, userId) =>
+  state.posts.posts ? state.posts.posts.filter((post) => post.userId === userId) : state.posts.filter((post) => post.userId === userId);
 
 // Find the specific post by its id
 export const selectPostById = (state, postId) =>

@@ -6,7 +6,7 @@ import { sub } from "date-fns";
 
 // posts logic & slice
 import { fetchPosts, addNewPost, updatePost, deletePost } from "./postsThunks";
-import { getNewPostId, selectPostById, selectAllButThis } from "./postsSelectors";
+import { getNewPostId, selectPostById, selectAllPostsButThis } from "./postsSelectors";
 
 const initialState = {
   posts: [],
@@ -128,7 +128,7 @@ const postsSlice = createSlice({
       const { id } = action.payload;
 
       // Simply remove the just-deleted post from our store
-      state.posts = selectAllButThis(state, id);
+      state.posts = selectAllPostsButThis(state, id);
     });
   },
 });
