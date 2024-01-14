@@ -1,25 +1,29 @@
-// Select all posts (either from the store or a slice)
-export const selectAllPosts = (state) => (state.posts.posts ? state.posts.posts : state.posts);
+// redux stuff
+import { createSelector } from "@reduxjs/toolkit";
 
-// Sort posts in reverse chronological order using datetime string
-export const selectAllPostsOrdered = (state) =>
-  state.posts.posts ? state.posts.posts.slice().sort((a, b) => b.date.localeCompare(a.date)) : state.posts.slice().sort((a, b) => b.date.localeCompare(a.date));
+// posts logic & slice
+import { postsAdapter } from "./postsSlice";
 
-// Select all posts except this one
-export const selectAllPostsButThis = (state, postId) =>
-  state.posts.posts ? state.posts.posts.filter((post) => post.id !== postId) : state.posts.filter((post) => post.id !== postId);
+export const {
+  // Select all posts
+  selectAll: selectAllPosts,
+
+  // Find the specific post by its id
+  selectById: selectPostById,
+
+  // Return the posts ids array
+  selectIds: selectPostsIds,
+
+  // Pass in a selector that returns the posts slice of state
+} = postsAdapter.getSelectors((state) => state.posts);
 
 // Select all posts for a specific user
-export const selectAllPostsForUser = (state, userId) =>
-  state.posts.posts ? state.posts.posts.filter((post) => post.userId === userId) : state.posts.filter((post) => post.userId === userId);
+export const selectAllPostsForUser = createSelector([selectAllPosts, (state, userId) => userId], (posts, userId) =>
+  posts.filter((post) => post.userId === userId)
+);
 
-// Find the specific post by its id
-export const selectPostById = (state, postId) =>
-  state.posts.posts ? state.posts.posts.find((post) => post.id === postId) : state.posts.find((post) => post.id === postId);
+export const getPostsStatus = (state) => state.posts.status;
+export const getPostsError = (state) => state.posts.error;
 
-export const getPostsStatus = (state) => (state.posts ? state.posts.status : state.status);
-export const getPostsError = (state) => (state.posts ? state.posts.error : state.error);
-export const getNewPostId = (state) =>
-  state.posts
-    ? state.posts.reduce((postsMaxId, post) => Math.max(postsMaxId, post.id), -Infinity) + 1
-    : state.reduce((postsMaxId, post) => Math.max(postsMaxId, post.id), -Infinity) + 1;
+// Used for optimization purposes
+export const getPostsCount = (state) => state.posts.count;

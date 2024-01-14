@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 // posts logic & slice
-import { postAdded } from "../postsSlice";
 import { addNewPost } from "../postsThunks";
 
 // users logic & slice
@@ -54,7 +53,6 @@ export default function AddPostForm() {
         setAddRequestStatus("pending");
         // A new post has been added by the user
         await dispatch(addNewPost({ title, content, userId })).unwrap();
-        // dispatch(postAdded(title, content, userId));
 
         // Clear the form
         setTitle("");

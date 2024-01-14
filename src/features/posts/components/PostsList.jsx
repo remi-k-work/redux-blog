@@ -5,14 +5,14 @@ import styles from "./PostsList.module.css";
 import { useSelector } from "react-redux";
 
 // posts logic & slice
-import { selectAllPostsOrdered, getPostsStatus, getPostsError } from "../postsSelectors";
+import { getPostsStatus, getPostsError, selectPostsIds } from "../postsSelectors";
 
 // components
 import PostExcerpt from "./PostExcerpt";
 
 export default function PostsList() {
   // Global state & dispatch coming from redux
-  const posts = useSelector(selectAllPostsOrdered);
+  const orderedPostsIds = useSelector(selectPostsIds);
   const postsStatus = useSelector(getPostsStatus);
   const postsError = useSelector(getPostsError);
 
@@ -20,7 +20,7 @@ export default function PostsList() {
   if (postsStatus === "loading") {
     content = <p>"Loading..."</p>;
   } else if (postsStatus === "succeeded") {
-    content = posts.map((post) => <PostExcerpt key={post.id} post={post} />);
+    content = orderedPostsIds.map((postId) => <PostExcerpt key={postId} postId={postId} />);
   } else if (postsStatus === "failed") {
     content = <p>{postsError}</p>;
   }

@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 // posts logic & slice
 import { selectPostById } from "../postsSelectors";
-import { postAdded } from "../postsSlice";
 import { updatePost, deletePost } from "../postsThunks";
 
 // users logic & slice
@@ -64,7 +63,6 @@ export default function EditPostForm({ postId }) {
         setAddRequestStatus("pending");
         // The user updated the current post
         await dispatch(updatePost({ postId, title, content, userId })).unwrap();
-        // dispatch(postAdded(title, content, userId));
 
         // Clear the form
         setTitle("");

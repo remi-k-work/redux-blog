@@ -4,7 +4,18 @@ import styles from "./Header.module.css";
 // rrd imports
 import { NavLink } from "react-router-dom";
 
+// redux stuff
+import { useSelector, useDispatch } from "react-redux";
+
+// posts logic & slice
+import { getPostsCount } from "../features/posts/postsSelectors";
+import { countIncreased } from "../features/posts/postsSlice";
+
 export default function Header() {
+  // Global state & dispatch coming from redux
+  const count = useSelector(getPostsCount);
+  const dispatch = useDispatch();
+
   return (
     <header className={styles["header"]}>
       <h1>Redux Blog</h1>
@@ -23,6 +34,9 @@ export default function Header() {
             <NavLink to="users">View All Users</NavLink>
           </li>
         </ul>
+        <button type="button" onClick={() => dispatch(countIncreased())}>
+          {count}
+        </button>
       </nav>
     </header>
   );

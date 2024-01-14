@@ -1,5 +1,5 @@
 // rrd imports
-import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider, Navigate } from "react-router-dom";
 
 // *** Pages ***
 import Home from "./pages/Home";
@@ -17,16 +17,21 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<RootLayout />}>
       <Route index element={<Home />} />
+
       <Route path="posts">
         <Route index element={<ViewAllPosts />} />
         <Route path=":postId" element={<ViewPostDetails />} />
         <Route path="create" element={<CreateNewPost />} />
         <Route path="edit/:postId" element={<EditCurrentPost />} />
       </Route>
+
       <Route path="users">
         <Route index element={<ViewAllUsers />} />
         <Route path=":userId" element={<ViewUserDetails />} />
       </Route>
+
+      {/* Catch all; replace with a 404 page if desired */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   )
 );
