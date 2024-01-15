@@ -16,12 +16,12 @@ export const addNewPost = createAsyncThunk(
   // The payload creator receives the partial `{title, content, userId}` object
   async (initialPost) => {
     // Destructure the payload
-    const { title, content, userId } = initialPost;
+    const { postTitle, postAuthor, postContent } = initialPost;
 
     // We send the initial data to the fake api server
     // However, ensure that we are adhering to the server's schema and required data types
     // Input => { title: "foo", body: "bar", userId: 1 };
-    const reqData = { title: title, body: content, userId: Number(userId) };
+    const reqData = { title: postTitle, body: postContent, userId: Number(postAuthor) };
     const response = await axios.post(POSTS_URL, reqData);
 
     // Output <= { id: 101, title: "foo", body: "bar", userId: 1 };

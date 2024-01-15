@@ -17,7 +17,7 @@ export default function TimeAgo({ timestamp }) {
 
   return (
     <span className={styles["time-ago"]} title={timestamp}>
-      &nbsp;<i>{timeAgo}</i>
+      <i>{timeAgo}</i>
     </span>
   );
 }

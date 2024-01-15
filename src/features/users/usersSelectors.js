@@ -1,5 +1,15 @@
-// Select all users
-export const selectAllUsers = (state) => state.users;
+// users logic & slice
+import { usersAdapter } from "./usersSlice";
 
-// Find the specific user by its id
-export const selectUserById = (state, userId) => state.users.find((user) => user.id === userId);
+export const {
+  // Select all users
+  selectAll: selectAllUsers,
+
+  // Find the specific user by its id
+  selectById: selectUserById,
+
+  // Return the users ids array
+  selectIds: selectUsersIds,
+
+  // Pass in a selector that returns the users slice of state
+} = usersAdapter.getSelectors((state) => state.users);

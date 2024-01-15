@@ -16,60 +16,52 @@ import { addNewPost } from "../postsThunks";
 // users logic & slice
 import { selectAllUsers } from "../../users/usersSelectors";
 
+// other libraries
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { waait } from "../../../js/helpers";
+
+// components
+import FormTextField from "../../../components/FormTextField";
+
+const validationSchema = z.object({
+  postTitle: z.string().min(1, { message: "Please enter the title of this post." }),
+  postAuthor: z.string().min(1, { message: "Who is the author?" }),
+  postContent: z.string().min(1, { message: "Content is a required field." }),
+});
+
 export default function AddPostForm() {
   const navigate = useNavigate();
 
-  // Local state for this component that does not have to be shared
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [userId, setUserId] = useState("");
-  const [addRequestStatus, setAddRequestStatus] = useState("idle");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({ resolver: zodResolver(validationSchema), defaultValues: { postTitle: "", postAuthor: "", postContent: "" } });
 
   // Global state & dispatch coming from redux
   const users = useSelector(selectAllUsers);
   const dispatch = useDispatch();
 
-  // Handle title change
-  function handleTitleChange(ev) {
-    setTitle(ev.target.value);
-  }
+  // Handle the form submission
+  async function onSubmit(data) {
+    // Destructure the form data
+    const { postTitle, postAuthor, postContent } = data;
 
-  // Handle author change
-  function handleAuthorChange(ev) {
-    setUserId(ev.target.value);
-  }
+    try {
+      // A new post has been added by the user
+      await dispatch(addNewPost({ postTitle, postAuthor, postContent })).unwrap();
 
-  // Handle content change
-  function handleContentChange(ev) {
-    setContent(ev.target.value);
-  }
+      // Clear the form
+      reset();
 
-  // Handle a save post click
-  async function handleSavePostClick(ev) {
-    // It would be helpful if we could deactivate the "Save Post" button while we wait for the request,
-    // so that the user does not unintentionally try to save a post twice
-    if (canSavePost) {
-      try {
-        setAddRequestStatus("pending");
-        // A new post has been added by the user
-        await dispatch(addNewPost({ title, content, userId })).unwrap();
-
-        // Clear the form
-        setTitle("");
-        setContent("");
-        setUserId("");
-
-        navigate("/posts");
-      } catch (error) {
-        console.error("Failed to save the post: ", error);
-      } finally {
-        setAddRequestStatus("idle");
-      }
+      navigate("/posts");
+    } catch (error) {
+      console.error("Failed to save the post: ", error);
     }
   }
-
-  // Only activate the save post button after all fields have been filled out and no dispatched requests are pending
-  const canSavePost = [title, content, userId].every(Boolean) && addRequestStatus === "idle";
 
   const usersOptions = users.map((user) => {
     const { id, name } = user;
@@ -84,20 +76,25 @@ export default function AddPostForm() {
   return (
     <section className={styles["add-post-form"]}>
       <h2>Add a New Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input type="text" id="postTitle" name="postTitle" value={title} onChange={handleTitleChange} />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormTextField name={"postTitle"} label={"Post Title:"} register={register} errors={errors} />
+        {/* <label htmlFor="postTitle">Post Title:</label>
+        <input type="text" id="postTitle" {...register("postTitle")} aria-invalid={errors.postTitle ? "true" : "false"} />
+        {errors.postTitle && <p role="alert">{errors.postTitle.message}</p>} */}
 
         <label htmlFor="postAuthor">Author:</label>
-        <select id="postAuthor" value={userId} onChange={handleAuthorChange}>
+        <select id="postAuthor" {...register("postAuthor")} aria-invalid={errors.postAuthor ? "true" : "false"}>
           <option value=""></option>
           {usersOptions}
         </select>
+        {errors.postAuthor && <p role="alert">{errors.postAuthor.message}</p>}
 
         <label htmlFor="postContent">Content:</label>
-        <textarea id="postContent" name="postContent" value={content} onChange={handleContentChange} />
+        <textarea id="postContent" {...register("postContent")} aria-invalid={errors.postContent ? "true" : "false"} />
+        {errors.postContent && <p role="alert">{errors.postContent.message}</p>}
 
-        <button type="button" onClick={handleSavePostClick} disabled={!canSavePost}>
+        {/* Only activate the save post button after all fields have been filled out and no dispatched requests are pending */}
+        <button type="submit" disabled={isSubmitting}>
           Save Post
         </button>
       </form>

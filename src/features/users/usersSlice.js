@@ -1,10 +1,12 @@
 // redux stuff
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 // users logic & slice
 import { fetchUsers } from "./usersThunks";
 
-const initialState = [];
+export const usersAdapter = createEntityAdapter();
+
+const initialState = usersAdapter.getInitialState();
 
 const usersSlice = createSlice({
   name: "users",
@@ -12,7 +14,10 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      return action.payload;
+      // Destructure the payload
+      const loadedUsers = action.payload;
+
+      usersAdapter.setAll(state, loadedUsers);
     });
   },
 });
