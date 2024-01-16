@@ -1,9 +1,6 @@
 // component css styles
 import styles from "./AddPostForm.module.css";
 
-// react
-import { useState } from "react";
-
 // rrd imports
 import { useNavigate } from "react-router-dom";
 
@@ -19,19 +16,19 @@ import { selectAllUsers } from "../../users/usersSelectors";
 // other libraries
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { waait } from "../../../js/helpers";
+import { validationSchema } from "../postFormValidation";
 
 // components
 import FormTextField from "../../../components/FormTextField";
-
-const validationSchema = z.object({
-  postTitle: z.string().min(1, { message: "Please enter the title of this post." }),
-  postAuthor: z.string().min(1, { message: "Who is the author?" }),
-  postContent: z.string().min(1, { message: "Content is a required field." }),
-});
+import FormSelectField from "../../../components/FormSelectField";
+import FormTextArea from "../../../components/FormTextArea";
 
 export default function AddPostForm() {
+  // Global state & dispatch coming from redux
+  const users = useSelector(selectAllUsers);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const {
@@ -40,10 +37,6 @@ export default function AddPostForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(validationSchema), defaultValues: { postTitle: "", postAuthor: "", postContent: "" } });
-
-  // Global state & dispatch coming from redux
-  const users = useSelector(selectAllUsers);
-  const dispatch = useDispatch();
 
   // Handle the form submission
   async function onSubmit(data) {
@@ -57,43 +50,32 @@ export default function AddPostForm() {
       // Clear the form
       reset();
 
+      // Return to the default posts page
       navigate("/posts");
     } catch (error) {
       console.error("Failed to save the post: ", error);
     }
   }
 
-  const usersOptions = users.map((user) => {
-    const { id, name } = user;
-
-    return (
-      <option key={id} value={id}>
-        {name}
-      </option>
-    );
-  });
-
   return (
     <section className={styles["add-post-form"]}>
       <h2>Add a New Post</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormTextField name={"postTitle"} label={"Post Title:"} register={register} errors={errors} />
-        {/* <label htmlFor="postTitle">Post Title:</label>
-        <input type="text" id="postTitle" {...register("postTitle")} aria-invalid={errors.postTitle ? "true" : "false"} />
-        {errors.postTitle && <p role="alert">{errors.postTitle.message}</p>} */}
-
-        <label htmlFor="postAuthor">Author:</label>
-        <select id="postAuthor" {...register("postAuthor")} aria-invalid={errors.postAuthor ? "true" : "false"}>
+        <FormSelectField name={"postAuthor"} label={"Author:"} register={register} errors={errors}>
           <option value=""></option>
-          {usersOptions}
-        </select>
-        {errors.postAuthor && <p role="alert">{errors.postAuthor.message}</p>}
+          {users.map((user) => {
+            const { id, name } = user;
+            return (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            );
+          })}
+        </FormSelectField>
+        <FormTextArea name={"postContent"} label={"Content:"} register={register} errors={errors} />
 
-        <label htmlFor="postContent">Content:</label>
-        <textarea id="postContent" {...register("postContent")} aria-invalid={errors.postContent ? "true" : "false"} />
-        {errors.postContent && <p role="alert">{errors.postContent.message}</p>}
-
-        {/* Only activate the save post button after all fields have been filled out and no dispatched requests are pending */}
+        {/* Only activate the save post button when no requests are pending */}
         <button type="submit" disabled={isSubmitting}>
           Save Post
         </button>

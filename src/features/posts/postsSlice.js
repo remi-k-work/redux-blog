@@ -117,7 +117,7 @@ const postsSlice = createSlice({
       const { id } = action.payload;
 
       // Simply remove the just-deleted post from our store
-      postsAdapter.removeOne(id);
+      postsAdapter.removeOne(state, id);
     });
   },
 });
