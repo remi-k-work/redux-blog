@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: purple;
-  color: whitesmoke;
+  background-color: var(--surface-2);
+  color: var(--brand);
   position: sticky;
   top: 0;
 }
@@ -25,7 +25,6 @@
 
 .header > nav a,
 .header > nav a:visited {
-  color: #fff;
   text-decoration: none;
 }
 

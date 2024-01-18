@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { waait } from "../../../js/helpers";
 import { validationSchema } from "../postFormValidation";
+import { HandThumbUpIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 
 // components
 import FormTextField from "../../../components/FormTextField";
@@ -59,10 +60,22 @@ export default function AddPostForm() {
 
   return (
     <section className={styles["add-post-form"]}>
-      <h2>Add a New Post</h2>
+      <h2>
+        <PencilSquareIcon width={64} height={64} />
+        Add a New Post
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormTextField name={"postTitle"} label={"Post Title:"} register={register} errors={errors} />
-        <FormSelectField name={"postAuthor"} label={"Author:"} register={register} errors={errors}>
+        <FormTextField
+          name={"postTitle"}
+          label={"Post Title"}
+          register={register}
+          errors={errors}
+          size={40}
+          maxLength={50}
+          spellCheck={"true"}
+          autoComplete={"off"}
+        />
+        <FormSelectField name={"postAuthor"} label={"Author"} register={register} errors={errors}>
           <option value=""></option>
           {users.map((user) => {
             const { id, name } = user;
@@ -73,12 +86,15 @@ export default function AddPostForm() {
             );
           })}
         </FormSelectField>
-        <FormTextArea name={"postContent"} label={"Content:"} register={register} errors={errors} />
+        <FormTextArea name={"postContent"} label={"Content"} register={register} errors={errors} cols={50} rows={6} spellCheck="true" autoComplete={"off"} />
 
-        {/* Only activate the save post button when no requests are pending */}
-        <button type="submit" disabled={isSubmitting}>
-          Save Post
-        </button>
+        <div className={styles["add-post-form__submit"]}>
+          {/* Only activate the save post button when no requests are pending */}
+          <button type="submit" disabled={isSubmitting}>
+            <HandThumbUpIcon width={24} height={24} />
+            Save Post
+          </button>
+        </div>
       </form>
     </section>
   );
