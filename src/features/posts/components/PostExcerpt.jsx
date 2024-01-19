@@ -26,12 +26,12 @@ export default function PostExcerpt({ postId }) {
 
   return (
     <article className={styles["post-excerpt"]}>
-      <h2>{title}</h2>
+      <h2 className={styles["post-excerpt__title"]}>{title}</h2>
       <p className={styles["post-excerpt__content"]}>{content.substring(0, 75)}...</p>
       <section className={styles["post-excerpt__credit"]}>
         <PostAuthor userId={userId} />
         <TimeAgo timestamp={date} />
-        <Link to={`/posts/${id}`}>
+        <Link className={styles["post-excerpt__view-post"]} to={`/posts/${id}`}>
           <EyeIcon width={24} height={24} />
           View
         </Link>

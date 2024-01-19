@@ -19,7 +19,6 @@ export default function PostAuthor({ userId }) {
 
   return (
     <span className={styles["post-author"]}>
-      by
       {author ? (
         <Link to={`/users/${userId}`}>
           <span className={styles["post-author__name"]}>

@@ -1,4 +1,10 @@
 .reaction-buttons {
   display: flex;
-  gap: 1em;
+  gap: var(--size-3);
+  justify-content: end;
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+  border-block-start: var(--border-size-1) dotted var(--surface-1);
+  border-block-end: var(--border-size-1) dotted var(--surface-1);
 }

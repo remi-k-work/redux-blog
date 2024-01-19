@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 // posts logic & slice
 import { selectPostById } from "../postsSelectors";
 
+// other libraries
+import { PencilIcon } from "@heroicons/react/24/solid";
+
 // components
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
@@ -31,11 +34,16 @@ export default function SinglePostView({ postId }) {
 
   return (
     <article className={styles["single-post-view"]}>
-      <h2>{title}</h2>
+      <h2 className={styles["single-post-view__title"]}>{title}</h2>
       <p className={styles["single-post-view__content"]}>{content}</p>
-      <Link to={`/posts/edit/${id}`}>Edit Post</Link>
-      <PostAuthor userId={userId} />
-      <TimeAgo timestamp={date} />
+      <section className={styles["single-post-view__credit"]}>
+        <PostAuthor userId={userId} />
+        <TimeAgo timestamp={date} />
+        <Link className={styles["single-post-view__edit-post"]} to={`/posts/edit/${id}`}>
+          <PencilIcon width={24} height={24} />
+          Edit
+        </Link>
+      </section>
       <ReactionButtons post={post} />
     </article>
   );
