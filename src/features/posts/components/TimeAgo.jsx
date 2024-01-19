@@ -3,6 +3,7 @@ import styles from "./TimeAgo.module.css";
 
 // other libraries
 import { parseISO, formatDistanceToNow } from "date-fns";
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 export default function TimeAgo({ timestamp }) {
   // Format a timestamp string into a relative description
@@ -17,7 +18,8 @@ export default function TimeAgo({ timestamp }) {
 
   return (
     <span className={styles["time-ago"]} title={timestamp}>
-      <i>{timeAgo}</i>
+      <ClockIcon width={24} height={24} />
+      {timeAgo}
     </span>
   );
 }

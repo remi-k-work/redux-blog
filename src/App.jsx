@@ -1,12 +1,16 @@
 // rrd imports
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider, Navigate } from "react-router-dom";
 
+// other libraries
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // *** Pages ***
 import Home from "./pages/Home";
 import ViewAllPosts from "./pages/posts/ViewAllPosts";
 import ViewPostDetails from "./pages/posts/ViewPostDetails";
-import CreateNewPost from "./pages/posts/CreateNewPost";
-import EditCurrentPost from "./pages/posts/EditCurrentPost";
+import CreateNewPost, { createNewPostAction } from "./pages/posts/CreateNewPost";
+import EditCurrentPost, { editCurrentPostAction } from "./pages/posts/EditCurrentPost";
 import ViewAllUsers from "./pages/users/ViewAllUsers";
 import ViewUserDetails from "./pages/users/ViewUserDetails";
 
@@ -21,8 +25,8 @@ const router = createBrowserRouter(
       <Route path="posts">
         <Route index element={<ViewAllPosts />} />
         <Route path=":postId" element={<ViewPostDetails />} />
-        <Route path="create" element={<CreateNewPost />} />
-        <Route path="edit/:postId" element={<EditCurrentPost />} />
+        <Route path="create" element={<CreateNewPost />} action={createNewPostAction} />
+        <Route path="edit/:postId" element={<EditCurrentPost />} action={editCurrentPostAction} />
       </Route>
 
       <Route path="users">
@@ -37,5 +41,10 @@ const router = createBrowserRouter(
 );
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </>
+  );
 }

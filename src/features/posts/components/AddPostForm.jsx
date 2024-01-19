@@ -2,13 +2,10 @@
 import styles from "./AddPostForm.module.css";
 
 // rrd imports
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigation, useSubmit } from "react-router-dom";
 
 // redux stuff
-import { useSelector, useDispatch } from "react-redux";
-
-// posts logic & slice
-import { addNewPost } from "../postsThunks";
+import { useSelector } from "react-redux";
 
 // users logic & slice
 import { selectAllUsers } from "../../users/usersSelectors";
@@ -28,34 +25,24 @@ import FormTextArea from "../../../components/FormTextArea";
 export default function AddPostForm() {
   // Global state & dispatch coming from redux
   const users = useSelector(selectAllUsers);
-  const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+  const { state } = useNavigation();
+  const submit = useSubmit();
 
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
+    setValue,
+    formState: { errors },
   } = useForm({ resolver: zodResolver(validationSchema), defaultValues: { postTitle: "", postAuthor: "", postContent: "" } });
 
   // Handle the form submission
-  async function onSubmit(data) {
-    // Destructure the form data
-    const { postTitle, postAuthor, postContent } = data;
+  async function onSubmit(data, ev) {
+    // In order for the react hook form to work, we must call handle submit
+    const theForm = ev.target;
 
-    try {
-      // A new post has been added by the user
-      await dispatch(addNewPost({ postTitle, postAuthor, postContent })).unwrap();
-
-      // Clear the form
-      reset();
-
-      // Return to the default posts page
-      navigate("/posts");
-    } catch (error) {
-      console.error("Failed to save the post: ", error);
-    }
+    // Now, pass the form submission handling to rrd
+    submit(theForm);
   }
 
   return (
@@ -64,7 +51,7 @@ export default function AddPostForm() {
         <PencilSquareIcon width={64} height={64} />
         Add a New Post
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)} method="post">
         <FormTextField
           name={"postTitle"}
           label={"Post Title"}
@@ -89,13 +76,17 @@ export default function AddPostForm() {
         <FormTextArea name={"postContent"} label={"Content"} register={register} errors={errors} cols={50} rows={6} spellCheck="true" autoComplete={"off"} />
 
         <div className={styles["add-post-form__submit"]}>
+          {/* This section is required by rrd to determine which submission button was clicked */}
+          {/* Using <button type="submit" name="action" value={"action name"} /> does not work well with react hook form */}
+          <input type="text" {...register("action")} hidden={true} />
+
           {/* Only activate the save post button when no requests are pending */}
-          <button type="submit" disabled={isSubmitting}>
+          <button type="submit" onClick={() => setValue("action", "addNewPost")} disabled={state !== "idle"}>
             <HandThumbUpIcon width={24} height={24} />
             Save Post
           </button>
         </div>
-      </form>
+      </Form>
     </section>
   );
 }

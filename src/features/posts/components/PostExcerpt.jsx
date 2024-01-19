@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 // posts logic & slice
 import { selectPostById } from "../postsSelectors";
 
+// other libraries
+import { EyeIcon } from "@heroicons/react/24/solid";
+
 // components
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
@@ -25,9 +28,14 @@ export default function PostExcerpt({ postId }) {
     <article className={styles["post-excerpt"]}>
       <h2>{title}</h2>
       <p className={styles["post-excerpt__content"]}>{content.substring(0, 75)}...</p>
-      <Link to={`/posts/${id}`}>View Post</Link>
-      <PostAuthor userId={userId} />
-      <TimeAgo timestamp={date} />
+      <section className={styles["post-excerpt__credit"]}>
+        <PostAuthor userId={userId} />
+        <TimeAgo timestamp={date} />
+        <Link to={`/posts/${id}`}>
+          <EyeIcon width={24} height={24} />
+          View
+        </Link>
+      </section>
       <ReactionButtons post={post} />
     </article>
   );
