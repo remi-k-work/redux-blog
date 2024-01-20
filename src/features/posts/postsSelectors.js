@@ -19,7 +19,7 @@ export const {
 
 // Select all posts for a specific user
 export const selectAllPostsForUser = createSelector([selectAllPosts, (state, userId) => userId], (posts, userId) =>
-  posts.filter((post) => post.userId === userId)
+  posts.filter((post) => post.userId === Number(userId))
 );
 
 export const getPostsStatus = (state) => state.posts.status;

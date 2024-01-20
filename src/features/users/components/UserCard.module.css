@@ -1,0 +1,41 @@
+.user-card {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+
+  display: grid;
+  grid-template-columns: [avatar-start background-start text-start] auto [avatar-end background-end text-end];
+  grid-template-rows: [avatar-start] 15vh [background-start] auto [avatar-end text-start] auto [text-end];
+  gap: var(--size-3);
+
+  box-shadow: var(--shadow-6);
+}
+
+.user-card__avatar {
+  grid-area: avatar;
+  background: var(--surface-3);
+}
+
+.user-card__name {
+  grid-area: background;
+  background: var(--surface-4);
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  font-size: var(--font-size-5);
+}
+
+.user-card__info {
+  grid-area: text;
+  background: var(--surface-4);
+  color: var(--text-2);
+  font-size: var(--font-size-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+  box-shadow: var(--inner-shadow-4);
+}

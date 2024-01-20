@@ -38,19 +38,7 @@ export default function EditPostForm({ postId }) {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({
-    resolver: zodResolver(validationSchema),
-    defaultValues: { postTitle: post?.title, postAuthor: String(post?.userId), postContent: post?.content },
-  });
-
-  // Handle the form submission
-  async function onSubmit(data, ev) {
-    // In order for the react hook form to work, we must call handle submit
-    const theForm = ev.target;
-
-    // Now, pass the form submission handling to rrd
-    submit(theForm);
-  }
+  } = useForm({ resolver: zodResolver(validationSchema) });
 
   return !post ? (
     <article>
@@ -62,7 +50,9 @@ export default function EditPostForm({ postId }) {
         <PencilSquareIcon width={64} height={64} />
         Edit Post
       </h2>
-      <Form onSubmit={handleSubmit(onSubmit)} method="post">
+
+      {/* To make the react hook form work, we must call handle submit while passing the form submission handling to rrd */}
+      <Form onSubmit={handleSubmit((data, ev) => submit(ev.target))} method="post">
         <FormTextField
           name={"postTitle"}
           label={"Post Title"}
@@ -72,8 +62,9 @@ export default function EditPostForm({ postId }) {
           maxLength={50}
           spellCheck={"true"}
           autoComplete={"off"}
+          defaultValue={post?.title}
         />
-        <FormSelectField name={"postAuthor"} label={"Author"} register={register} errors={errors}>
+        <FormSelectField name={"postAuthor"} label={"Author"} register={register} errors={errors} defaultValue={post?.userId}>
           <option value=""></option>
           {users.map((user) => {
             const { id, name } = user;
@@ -84,7 +75,17 @@ export default function EditPostForm({ postId }) {
             );
           })}
         </FormSelectField>
-        <FormTextArea name={"postContent"} label={"Content"} register={register} errors={errors} cols={50} rows={6} spellCheck="true" autoComplete={"off"} />
+        <FormTextArea
+          name={"postContent"}
+          label={"Content"}
+          register={register}
+          errors={errors}
+          cols={50}
+          rows={6}
+          spellCheck="true"
+          autoComplete={"off"}
+          defaultValue={post?.content}
+        />
 
         <div className={styles["edit-post-form__submit"]}>
           {/* This section is required by rrd to determine which submission button was clicked */}
@@ -96,7 +97,17 @@ export default function EditPostForm({ postId }) {
             <HandThumbUpIcon width={24} height={24} />
             Save Post
           </button>
-          <button type="submit" onClick={() => setValue("action", "deletePost")} className={styles["edit-post-form__delete"]} disabled={state !== "idle"}>
+
+          {/* To avoid form validation, we use type="button" and submit the form ourself */}
+          <button
+            type="button"
+            onClick={(ev) => {
+              setValue("action", "deletePost");
+              submit(ev.target.form);
+            }}
+            className={styles["edit-post-form__delete"]}
+            disabled={state !== "idle"}
+          >
             <TrashIcon width={24} height={24} />
             Delete Post
           </button>

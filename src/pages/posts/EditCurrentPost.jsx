@@ -21,7 +21,7 @@ export default function EditCurrentPost() {
 
   return (
     <article className={styles["edit-current-post"]}>
-      <EditPostForm postId={Number(postId)} />
+      <EditPostForm postId={postId} />
     </article>
   );
 }

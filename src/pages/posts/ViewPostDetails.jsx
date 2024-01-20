@@ -12,7 +12,7 @@ export default function ViewPostDetails() {
 
   return (
     <article className={styles["view-post-details"]}>
-      <SinglePostView postId={Number(postId)} />
+      <SinglePostView postId={postId} />
     </article>
   );
 }

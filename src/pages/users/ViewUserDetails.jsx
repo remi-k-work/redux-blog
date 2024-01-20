@@ -12,7 +12,7 @@ export default function ViewUserDetails() {
 
   return (
     <article className={styles["view-user-details"]}>
-      <SingleUserView userId={Number(userId)} />
+      <SingleUserView userId={userId} />
     </article>
   );
 }
