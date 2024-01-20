@@ -1,3 +1,6 @@
 .users-list {
-  display: block;
+  display: grid;
+  gap: var(--size-8);
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-2)), 1fr));
 }

@@ -1,5 +1,4 @@
 .post-excerpt {
-  inline-size: 100%;
   max-inline-size: var(--size-content-3);
   margin-inline: auto;
 
@@ -15,7 +14,6 @@
 }
 
 .post-excerpt__title {
-  inline-size: 100%;
   max-inline-size: var(--size-content-3);
   font-family: var(--font-serif);
   font-size: var(--font-size-5);

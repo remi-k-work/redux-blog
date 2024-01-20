@@ -18,23 +18,21 @@ export default function UserCard({ userId }) {
 
   return (
     <article className={styles["user-card"]}>
+      <div className={styles["user-card__background"]}></div>
       <Link className={styles["user-card__avatar"]} to={`/users/${id}`}>
         <img src={`https://doodleipsum.com/200x200/avatar-3?n=${id}`} width={200} height={200} alt="Avatar" />
       </Link>
-      <h2 className={styles["user-card__name"]}>
-        <Link to={`/users/${id}`}>{name}</Link>
-      </h2>
       <section className={styles["user-card__info"]}>
         <dl>
-          <dt>Username</dt>
+          <dt>username</dt>
           <dd>{username}</dd>
-          <dt>Email</dt>
+          <dt>email</dt>
           <dd>{email}</dd>
-          <dt>Phone</dt>
+          <dt>phone</dt>
           <dd>{phone}</dd>
-          <dt>Website</dt>
+          <dt>website</dt>
           <dd>{website}</dd>
-          <dt>Address</dt>
+          <dt>address</dt>
           <dd>
             <p>
               {address.street} #{address.suite}
@@ -45,6 +43,9 @@ export default function UserCard({ userId }) {
           </dd>
         </dl>
       </section>
+      <h2 className={styles["user-card__name"]}>
+        <Link to={`/users/${id}`}>{name}</Link>
+      </h2>
     </article>
   );
 }
