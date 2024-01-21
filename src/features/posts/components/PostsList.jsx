@@ -18,7 +18,7 @@ export default function PostsList() {
 
   let content;
   if (postsStatus === "loading") {
-    content = <p>"Loading..."</p>;
+    content = <p>Loading...</p>;
   } else if (postsStatus === "succeeded") {
     content = orderedPostsIds.map((postId) => <PostExcerpt key={postId} postId={postId} />);
   } else if (postsStatus === "failed") {

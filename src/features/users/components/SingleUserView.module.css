@@ -1,3 +1,78 @@
 .single-user-view {
-  display: block;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+
+  display: grid;
+  grid-template-columns: [nam-start] var(--size-3) [ava-start bck-start] var(--size-3) [cnt-start] auto [nam-end ava-end bck-end] var(--size-3) [cnt-end];
+  grid-template-rows: [ava-start] 200px [bck-start] 80px [ava-end nam-start] auto [cnt-start] var(--size-2) [nam-end] auto [cnt-end] var(--size-3) [bck-end];
+}
+
+.single-user-view__avatar {
+  grid-area: ava;
+}
+
+.single-user-view__background {
+  grid-area: bck;
+  background: var(--surface-2);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+}
+
+.single-user-view__name {
+  grid-area: nam;
+  max-inline-size: var(--size-content-3);
+  font-size: var(--font-size-4);
+  background: var(--surface-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-5);
+  z-index: 1;
+}
+
+.single-user-view__info {
+  grid-area: cnt;
+  background: var(--surface-4);
+  color: var(--text-2);
+  font-size: var(--font-size-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+  box-shadow: var(--inner-shadow-4);
+}
+
+.single-user-view__info > dl > dt {
+  max-inline-size: none;
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-9);
+  text-transform: uppercase;
+  display: flex;
+  align-items: end;
+  gap: var(--size-1);
+  color: var(--surface-3);
+  border-block-end: var(--border-size-1) dotted var(--surface-3);
+}
+
+.single-user-view__info > dl > dd {
+  max-inline-size: none;
+  text-align: end;
+}
+
+.single-user-view__all-my-posts {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3);
+  text-align: start;
+
+  background: var(--surface-3);
+  margin-block: var(--size-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+  box-shadow: var(--inner-shadow-4);
+}
+
+.single-user-view__all-my-posts > li {
+  margin-inline: var(--size-3) 0;
 }

@@ -1,5 +1,4 @@
 .single-post-view {
-  inline-size: 100%;
   max-inline-size: var(--size-content-3);
   margin-inline: auto;
 
@@ -15,7 +14,6 @@
 }
 
 .single-post-view__title {
-  inline-size: 100%;
   max-inline-size: var(--size-content-3);
   font-family: var(--font-serif);
 }
