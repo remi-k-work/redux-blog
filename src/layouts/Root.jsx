@@ -6,11 +6,13 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 
 // components
 import Header from "../components/Header";
+import Nav from "../components/Nav";
 
 export default function Root() {
   return (
     <div className={styles["root"]}>
       <Header />
+      <Nav />
       <main>
         <ScrollRestoration />
         <Outlet />

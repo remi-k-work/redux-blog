@@ -18,12 +18,12 @@ export default function PostsList() {
   const postsStatus = useSelector(getPostsStatus);
   const postsError = useSelector(getPostsError);
   const viewedPostsIds = useSelector(getViewedPostsIds);
+  const currentPage = useSelector(getCurrentPage);
   const postsPerPage = useSelector(getPostsPerPage);
   const totalItems = useSelector(getTotalItems);
-  const currentPage = useSelector(getCurrentPage);
   const dispatch = useDispatch();
 
-  function handlePageClicked(pageNumber) {
+  function handlePageChanged(pageNumber) {
     dispatch(postsPaginated(pageNumber));
   }
 
@@ -39,7 +39,7 @@ export default function PostsList() {
   return (
     <section className={styles["posts-list"]}>
       <SearchPanel searchContext={"Search Posts"} />
-      <Paginate itemsPerPage={postsPerPage} totalItems={totalItems} onPageClicked={handlePageClicked} />
+      <Paginate currentPage={currentPage} itemsPerPage={postsPerPage} totalItems={totalItems} onPageChanged={handlePageChanged} />
       {content}
     </section>
   );

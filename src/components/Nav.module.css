@@ -1,0 +1,68 @@
+.nav {
+  background: var(--surface-2);
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  padding-block: var(--size-3);
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: grid;
+  gap: var(--size-6);
+}
+
+.nav-list a {
+  display: block;
+  text-decoration: none;
+}
+
+.nav-list li {
+  padding-block: var(--size-3);
+  padding-inline: var(--size-4);
+  margin-inline: var(--size-3) 0;
+
+  /* prevent animation glitch on the right side */
+  box-shadow: 2px 0 0 var(--surface-1);
+}
+
+.nav-list__active {
+  view-transition-name: nav;
+
+  display: block;
+  background: var(--surface-1);
+  position: relative;
+  z-index: -1;
+  border-radius: 100vw 0 0 100vw;
+}
+
+::view-transition-group(nav) {
+  animation-duration: 1s;
+}
+
+.nav-list__active::before,
+.nav-list__active::after {
+  --_border-radius: var(--size-3);
+
+  content: "";
+  position: absolute;
+  width: var(--_border-radius);
+  height: var(--_border-radius);
+  right: 0rem;
+  background: var(--surface-2);
+}
+
+.nav-list__active::before {
+  border-radius: 0 0 var(--_border-radius);
+  top: calc(var(--_border-radius) * -1);
+  box-shadow: 5px 5px 0 5px var(--surface-1);
+}
+
+.nav-list__active::after {
+  border-radius: 0 var(--_border-radius) 0 0;
+  bottom: calc(var(--_border-radius) * -1);
+  box-shadow: 5px -5px 0 5px var(--surface-1);
+}
