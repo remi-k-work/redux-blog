@@ -1,18 +1,32 @@
 // redux stuff
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
-
-// other libraries
-import { sub } from "date-fns";
+import { createSlice, createEntityAdapter, original, current, isDraft } from "@reduxjs/toolkit";
 
 // posts logic & slice
 import { fetchPosts, addNewPost, updatePost, deletePost } from "./postsThunks";
 
+// other libraries
+import { sub } from "date-fns";
+import { matchSorter } from "match-sorter";
+
 export const postsAdapter = createEntityAdapter({
-  // Sort posts in reverse chronological order using datetime string
+  // Sort posts in reverse chronological order using a datetime string
   sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
 
+// "Unglobalized" set of selector functions from the entity adapter
+const postsLocalSelectors = postsAdapter.getSelectors();
+
 const initialState = postsAdapter.getInitialState({
+  // Found posts narrowed by search only
+  foundPostsIds: [],
+
+  // Currently viewed posts (narrowed by search and pagination)
+  viewedPostsIds: [],
+
+  // Pagination
+  postsPerPage: 10,
+  currentPage: 1,
+
   status: "idle", // "idle" | "loading" | "succeeded" | "failed"
   error: null,
 
@@ -24,6 +38,44 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
+    postsPaginated(state, action) {
+      // Destructure the payload
+      const pageNumber = action.payload;
+
+      // Set the current page number as provided
+      state.currentPage = pageNumber;
+
+      // Refresh the currently viewed posts to reflect the new page number
+      const { postsPerPage, currentPage } = state;
+      const indexOfLastPost = currentPage * postsPerPage;
+      const indexOfFirstPost = indexOfLastPost - postsPerPage;
+      state.viewedPostsIds = state.foundPostsIds.slice(indexOfFirstPost, indexOfLastPost);
+    },
+
+    // The user has typed a search phrase
+    postsSearched(state, action) {
+      // Destructure the payload
+      const keyword = action.payload;
+
+      // Search posts for specific terms in the "title" and "content" sections
+      state.foundPostsIds = matchSorter(postsLocalSelectors.selectAll(state), keyword, {
+        keys: ["title", "content"],
+        // Sort results in reverse chronological order using a datetime string
+        baseSort: (a, b) => {
+          b.item.date.localeCompare(a.item.date);
+        },
+      }).map((post) => post.id);
+
+      // Reset the current page number for pagination
+      state.currentPage = 1;
+
+      // Finally, let the results be the presently viewed posts
+      const { postsPerPage, currentPage } = state;
+      const indexOfLastPost = currentPage * postsPerPage;
+      const indexOfFirstPost = indexOfLastPost - postsPerPage;
+      state.viewedPostsIds = state.foundPostsIds.slice(indexOfFirstPost, indexOfLastPost);
+    },
+
     // The user added a reaction emoji to the post
     reactionAdded(state, action) {
       // Destructure the payload
@@ -53,22 +105,29 @@ const postsSlice = createSlice({
       const loadedPosts = action.payload;
 
       // Allow the fetched posts to form our array of posts
-      postsAdapter.setAll(
-        state,
-        loadedPosts.map((loadedPost) => {
-          // But only if they agree with our own schema first
-          return {
-            id: loadedPost.id,
-            title: loadedPost.title,
-            content: loadedPost.body,
-            userId: loadedPost.userId,
+      const validPosts = loadedPosts.map((loadedPost) => {
+        // But only if they agree with our own schema first
+        return {
+          id: loadedPost.id,
+          title: loadedPost.title,
+          content: loadedPost.body,
+          userId: loadedPost.userId,
 
-            // Again, add the missing section to ensure that it matches our own post schema
-            date: sub(new Date(), { minutes: Math.floor(Math.random() * 10080) }).toISOString(),
-            reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
-          };
-        })
-      );
+          // Again, add the missing section to ensure that it matches our own post schema
+          date: sub(new Date(), { minutes: Math.floor(Math.random() * 10080) }).toISOString(),
+          reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
+        };
+      });
+      postsAdapter.setAll(state, validPosts);
+
+      // The found posts are identical to the fetched posts in the beginning
+      state.foundPostsIds = state.ids;
+
+      // Finally, let the results be the presently viewed posts
+      const { postsPerPage, currentPage } = state;
+      const indexOfLastPost = currentPage * postsPerPage;
+      const indexOfFirstPost = indexOfLastPost - postsPerPage;
+      state.viewedPostsIds = state.foundPostsIds.slice(indexOfFirstPost, indexOfLastPost);
     });
 
     builder.addCase(fetchPosts.rejected, (state, action) => {
@@ -118,11 +177,20 @@ const postsSlice = createSlice({
 
       // Simply remove the just-deleted post from our store
       postsAdapter.removeOne(state, id);
+
+      // The found posts are identical to the fetched posts in the beginning
+      state.foundPostsIds = state.ids;
+
+      // Finally, let the results be the presently viewed posts
+      const { postsPerPage, currentPage } = state;
+      const indexOfLastPost = currentPage * postsPerPage;
+      const indexOfFirstPost = indexOfLastPost - postsPerPage;
+      state.viewedPostsIds = state.foundPostsIds.slice(indexOfFirstPost, indexOfLastPost);
     });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reactionAdded, countIncreased } = postsSlice.actions;
+export const { postsPaginated, postsSearched, reactionAdded, countIncreased } = postsSlice.actions;
 
 export default postsSlice.reducer;

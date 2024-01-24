@@ -22,6 +22,15 @@ export const selectAllPostsForUser = createSelector([selectAllPosts, (state, use
   posts.filter((post) => post.userId === Number(userId))
 );
 
+// Get currently viewed posts (narrowed by search and pagination)
+export const getViewedPostsIds = (state) => state.posts.viewedPostsIds;
+
+// Pagination
+export const getPostsPerPage = (state) => state.posts.postsPerPage;
+export const getCurrentPage = (state) => state.posts.currentPage;
+export const getTotalItems = (state) => state.posts.foundPostsIds.length;
+
+// Used to offer feedback on the status of fetching all posts
 export const getPostsStatus = (state) => state.posts.status;
 export const getPostsError = (state) => state.posts.error;
 

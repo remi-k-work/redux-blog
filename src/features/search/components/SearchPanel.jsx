@@ -2,30 +2,57 @@
 import styles from "./SearchPanel.module.css";
 
 // react
-import { useEffect } from "react";
+import { useDeferredValue, useEffect, useRef, useState } from "react";
 
 // rrd imports
 import { Form, useSearchParams, useSubmit } from "react-router-dom";
 
-export default function SearchPanel() {
-  const [searchParams, setSearchParams] = useSearchParams();
+// redux stuff
+import { useDispatch } from "react-redux";
+
+// search logic & slice
+import { keywordEntered } from "../searchSlice";
+
+// posts logic & slice
+import { postsSearched } from "../../posts/postsSlice";
+
+export default function SearchPanel({ searchContext }) {
+  // Global state & dispatch coming from redux
+  const dispatch = useDispatch();
+
+  const [keyword, setKeyword] = useState("");
+  const deferredKeyword = useDeferredValue(keyword);
+  const formRef = useRef(null);
+
+  const [searchParams] = useSearchParams();
   const submit = useSubmit();
-  const q = searchParams.get("q");
 
   useEffect(() => {
-    document.getElementById("q").value = q;
-  }, [q]);
+    const queryKeyword = searchParams.get("q");
+    if (queryKeyword) {
+      setKeyword(queryKeyword);
+    }
+  }, []);
 
-  // Handle keyword change
-  function handleKeywordChange(ev) {
-    const isFirstSearch = q == null;
-    submit(ev.currentTarget.form, { replace: !isFirstSearch });
-  }
+  useEffect(() => {
+    // submit(formRef.current, { replace: true });
+    dispatch(keywordEntered(deferredKeyword));
+    dispatch(postsSearched(deferredKeyword));
+  }, [deferredKeyword]);
 
   return (
     <section className={styles["search-panel"]}>
-      <Form role="search">
-        <input id="q" name="q" aria-label="Search" placeholder="Search" type="search" defaultValue={q} onChange={handleKeywordChange} />
+      <Form ref={formRef} role="search">
+        <input
+          name="q"
+          aria-label="Search"
+          placeholder={searchContext}
+          type="search"
+          size={25}
+          maxLength={50}
+          value={keyword}
+          onChange={(ev) => setKeyword(ev.target.value)}
+        />
       </Form>
     </section>
   );
