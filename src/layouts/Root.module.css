@@ -2,13 +2,30 @@
   min-block-size: 100%;
   flex: 1;
   display: grid;
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
-  gap: 1em;
+
+  grid-template-areas:
+    "navbar header"
+    "navbar main"
+    "navbar footer";
 }
 
-footer {
-  display: flex;
-  gap: 1em;
-  justify-content: center;
-  align-items: center;
+main {
+  grid-area: main;
+}
+
+/* || MEDIA QUERIES */
+
+/* X-Small devices (portrait phones, less than 576px) */
+@media screen and (max-width: 575.98px) {
+  .root {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+
+    grid-template-areas:
+      "header navbar"
+      "main   main"
+      "footer footer";
+  }
 }

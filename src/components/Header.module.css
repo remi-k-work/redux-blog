@@ -1,34 +1,11 @@
 .header {
-  padding: 1rem;
+  grid-area: header;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background-color: var(--surface-2);
+  gap: var(--size-3);
+  background: var(--surface-2);
   color: var(--brand);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
   position: sticky;
-  top: 0;
-}
-
-.header > nav {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.header > nav > ul {
-  list-style-type: none;
-}
-
-.header > nav > ul > li {
-  display: inline-block;
-  margin-right: 1rem;
-}
-
-.header > nav a,
-.header > nav a:visited {
-  text-decoration: none;
-}
-
-.header > nav a:hover,
-.header > nav a:focus {
-  text-decoration: underline;
+  inset-block-start: 0;
 }

@@ -6,18 +6,19 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 
 // components
 import Header from "../components/Header";
-import Nav from "../components/Nav";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 export default function Root() {
   return (
     <div className={styles["root"]}>
       <Header />
-      <Nav />
+      <NavBar />
       <main>
         <ScrollRestoration />
         <Outlet />
       </main>
-      <footer>Footer</footer>
+      <Footer />
     </div>
   );
 }

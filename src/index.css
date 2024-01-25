@@ -67,6 +67,4 @@ body {
 #root {
   min-block-size: 100cqb;
   display: flex;
-  padding-inline: var(--size-fluid-3) var(--size-fluid-3);
-  padding-block: var(--size-3) var(--size-3);
 }
