@@ -9,7 +9,7 @@
   border-radius: var(--radius-3);
 }
 
-.edit-post-form > h2 {
+.edit-post-form > h3 {
   background: var(--surface-3);
   padding-inline: var(--size-1);
   padding-block: var(--size-1);

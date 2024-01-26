@@ -25,7 +25,7 @@ export default function SinglePostView({ postId }) {
   if (!post) {
     return (
       <article>
-        <h2>Post not found!</h2>
+        <h3>Post not found!</h3>
       </article>
     );
   }
@@ -34,7 +34,7 @@ export default function SinglePostView({ postId }) {
 
   return (
     <article className={styles["single-post-view"]}>
-      <h2 className={styles["single-post-view__title"]}>{title}</h2>
+      <h3 className={styles["single-post-view__title"]}>{title}</h3>
       <p className={styles["single-post-view__content"]}>{content}</p>
       <section className={styles["single-post-view__credit"]}>
         <PostAuthor userId={userId} />

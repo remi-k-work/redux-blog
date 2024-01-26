@@ -38,10 +38,10 @@ export default function AddPostForm() {
 
   return (
     <section className={styles["add-post-form"]}>
-      <h2>
+      <h3>
         <PencilSquareIcon width={64} height={64} />
         Add a New Post
-      </h2>
+      </h3>
 
       {/* To make the react hook form work, we must call handle submit while passing the form submission handling to rrd */}
       <Form onSubmit={handleSubmit((data, ev) => submit(ev.target))} method="post">

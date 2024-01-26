@@ -42,14 +42,14 @@ export default function EditPostForm({ postId }) {
 
   return !post ? (
     <article>
-      <h2>Post not found!</h2>
+      <h3>Post not found!</h3>
     </article>
   ) : (
     <section className={styles["edit-post-form"]}>
-      <h2>
+      <h3>
         <PencilSquareIcon width={64} height={64} />
         Edit Post
-      </h2>
+      </h3>
 
       {/* To make the react hook form work, we must call handle submit while passing the form submission handling to rrd */}
       <Form onSubmit={handleSubmit((data, ev) => submit(ev.target))} method="post">

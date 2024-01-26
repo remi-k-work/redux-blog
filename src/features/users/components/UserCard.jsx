@@ -25,9 +25,9 @@ export default function UserCard({ userId }) {
       <Link className={styles["user-card__avatar"]} to={`/users/${id}`}>
         <img src={`https://doodleipsum.com/200x200/avatar-3?n=${id}`} width={200} height={200} alt="Avatar" />
       </Link>
-      <h2 className={styles["user-card__name"]}>
+      <h3 className={styles["user-card__name"]}>
         <Link to={`/users/${id}`}>{name}</Link>
-      </h2>
+      </h3>
       <section className={styles["user-card__info"]}>
         <dl>
           <dt>

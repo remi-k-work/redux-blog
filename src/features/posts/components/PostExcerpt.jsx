@@ -26,7 +26,7 @@ export default function PostExcerpt({ postId }) {
 
   return (
     <article className={styles["post-excerpt"]}>
-      <h2 className={styles["post-excerpt__title"]}>{title}</h2>
+      <h3 className={styles["post-excerpt__title"]}>{title}</h3>
       <p className={styles["post-excerpt__content"]}>{content.substring(0, 75)}...</p>
       <section className={styles["post-excerpt__credit"]}>
         <PostAuthor userId={userId} />

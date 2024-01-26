@@ -29,11 +29,11 @@ export default function PostsList() {
 
   let content;
   if (postsStatus === "loading") {
-    content = <p>Loading...</p>;
+    content = <h3>Loading...</h3>;
   } else if (postsStatus === "succeeded") {
     content = viewedPostsIds.map((postId) => <PostExcerpt key={postId} postId={postId} />);
   } else if (postsStatus === "failed") {
-    content = <p>{postsError}</p>;
+    content = <h3>{postsError}</h3>;
   }
 
   return (
@@ -41,6 +41,7 @@ export default function PostsList() {
       <SearchPanel searchContext={"Search Posts"} />
       <Paginate currentPage={currentPage} itemsPerPage={postsPerPage} totalItems={totalItems} onPageChanged={handlePageChanged} />
       {content}
+      <Paginate currentPage={currentPage} itemsPerPage={postsPerPage} totalItems={totalItems} onPageChanged={handlePageChanged} />
     </section>
   );
 }

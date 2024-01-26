@@ -1,5 +1,5 @@
 // redux stuff
-import { createSlice, createEntityAdapter, original, current, isDraft } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 // posts logic & slice
 import { fetchPosts, addNewPost, updatePost, deletePost } from "./postsThunks";
@@ -115,7 +115,15 @@ const postsSlice = createSlice({
 
           // Again, add the missing section to ensure that it matches our own post schema
           date: sub(new Date(), { minutes: Math.floor(Math.random() * 10080) }).toISOString(),
-          reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
+
+          // Create some random reactions for each post to make it appear more alive
+          reactions: {
+            thumbsUp: Math.floor(Math.random() * 10),
+            hooray: Math.floor(Math.random() * 10),
+            heart: Math.floor(Math.random() * 10),
+            rocket: Math.floor(Math.random() * 10),
+            eyes: Math.floor(Math.random() * 10),
+          },
         };
       });
       postsAdapter.setAll(state, validPosts);

@@ -14,8 +14,6 @@
 .user-card__background {
   grid-area: bck;
   background: var(--surface-2);
-  padding-inline: var(--size-3);
-  padding-block: var(--size-3);
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-6);
 }

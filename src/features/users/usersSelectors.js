@@ -11,5 +11,8 @@ export const {
   // Return the users ids array
   selectIds: selectUsersIds,
 
+  // Determine the total number of users we have
+  selectTotal: getNumberOfUsers,
+
   // Pass in a selector that returns the users slice of state
 } = usersAdapter.getSelectors((state) => state.users);

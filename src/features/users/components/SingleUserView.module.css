@@ -14,8 +14,6 @@
 .single-user-view__background {
   grid-area: bck;
   background: var(--surface-2);
-  padding-inline: var(--size-3);
-  padding-block: var(--size-3);
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-6);
 }
@@ -23,7 +21,7 @@
 .single-user-view__name {
   grid-area: nam;
   max-inline-size: var(--size-content-3);
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-5);
   background: var(--surface-3);
   padding-inline: var(--size-3);
   padding-block: var(--size-3);

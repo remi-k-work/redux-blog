@@ -24,7 +24,7 @@ export default function SingleUserView({ userId }) {
   if (!user) {
     return (
       <article>
-        <h2>User not found!</h2>
+        <h3>User not found!</h3>
       </article>
     );
   }
@@ -47,7 +47,7 @@ export default function SingleUserView({ userId }) {
       <div className={styles["single-user-view__avatar"]} to={`/users/${id}`}>
         <img src={`https://doodleipsum.com/300x300/avatar-3?n=${id}`} width={300} height={300} alt="Avatar" />
       </div>
-      <h2 className={styles["single-user-view__name"]}>{name}</h2>
+      <h3 className={styles["single-user-view__name"]}>{name}</h3>
       <section className={styles["single-user-view__info"]}>
         <dl>
           <dt>
