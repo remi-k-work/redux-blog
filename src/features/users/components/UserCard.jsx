@@ -17,6 +17,13 @@ export default function UserCard({ userId }) {
   // Global state & dispatch coming from redux
   const user = useSelector((state) => selectUserById(state, userId));
 
+  // If the redux store has not yet been updated with the most recent data
+  // (such as when fetching is in progress), the variable may be undefined
+  if (!user) {
+    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
+    return null;
+  }
+
   const { id, name, username, email, phone, website, address } = user;
 
   return (

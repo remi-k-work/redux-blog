@@ -15,7 +15,7 @@ export default function Header() {
 
   return (
     <header className={styles["header"]}>
-      {/* <h1>Redux Blog</h1> */}
+      <h1>WordWave</h1>
 
       {/* Used for optimization purposes */}
       <button type="button" onClick={() => dispatch(countIncreased())}>

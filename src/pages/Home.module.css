@@ -3,15 +3,31 @@
   padding-block: var(--size-3) var(--size-3);
 }
 
+.home__hero img {
+  inline-size: var(--size-fluid-9);
+  float: inline-start;
+  shape-outside: circle(50%);
+  border-start-start-radius: 50%;
+  border-start-end-radius: 50%;
+  border-end-start-radius: 50%;
+  border-end-end-radius: 50%;
+  margin-inline: 0 var(--size-3);
+}
+
 .home__dashboard {
   display: grid;
   gap: var(--size-8);
+  place-items: center;
+  background: var(--dashboard-gradient);
+  padding-inline: var(--size-fluid-3) var(--size-fluid-3);
+  padding-block: var(--size-3) var(--size-3);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
 
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-1)), 1fr));
 }
 
-.most-active-users {
-  max-inline-size: var(--size-content-1);
+.dashboard__most-active-users {
   display: grid;
   gap: var(--size-4);
   place-items: center;
@@ -19,10 +35,10 @@
   -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
-.most-active-users > h4 {
+.dashboard__most-active-users > h4 {
   place-self: stretch;
   max-inline-size: var(--size-header-1);
-  background-image: var(--heading-gradient-1);
+  background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
   padding-block: var(--size-2) var(--size-2);
@@ -30,8 +46,17 @@
   box-shadow: var(--shadow-6);
 }
 
-.total-posts {
-  max-inline-size: var(--size-content-1);
+.dashboard__totals {
+  place-self: stretch;
+  display: grid;
+  gap: var(--size-4);
+  place-items: center;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.dashboard-totals__total-posts {
   display: grid;
   gap: var(--size-4);
   place-items: center;
@@ -39,10 +64,10 @@
   -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
-.total-posts > h4 {
+.dashboard-totals__total-posts > h4 {
   place-self: stretch;
   max-inline-size: var(--size-header-1);
-  background-image: var(--heading-gradient-1);
+  background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
   padding-block: var(--size-2) var(--size-2);
@@ -50,12 +75,11 @@
   box-shadow: var(--shadow-6);
 }
 
-.total-posts > h5 {
+.dashboard-totals__total-posts > h5 {
   font-size: var(--font-size-6);
 }
 
-.total-users {
-  max-inline-size: var(--size-content-1);
+.dashboard-totals__total-users {
   display: grid;
   gap: var(--size-4);
   place-items: center;
@@ -63,10 +87,10 @@
   -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
-.total-users > h4 {
+.dashboard-totals__total-users > h4 {
   place-self: stretch;
   max-inline-size: var(--size-header-1);
-  background-image: var(--heading-gradient-1);
+  background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
   padding-block: var(--size-2) var(--size-2);
@@ -74,12 +98,11 @@
   box-shadow: var(--shadow-6);
 }
 
-.total-users > h5 {
+.dashboard-totals__total-users > h5 {
   font-size: var(--font-size-6);
 }
 
-.latest-posts {
-  max-inline-size: var(--size-content-1);
+.dashboard__latest-posts {
   display: grid;
   gap: var(--size-4);
   place-items: center;
@@ -87,10 +110,10 @@
   -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
-.latest-posts > h4 {
+.dashboard__latest-posts > h4 {
   place-self: stretch;
   max-inline-size: var(--size-header-1);
-  background-image: var(--heading-gradient-1);
+  background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
   padding-block: var(--size-2) var(--size-2);
