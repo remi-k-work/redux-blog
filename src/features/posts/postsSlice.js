@@ -90,6 +90,8 @@ const postsSlice = createSlice({
 
     // Used for optimization purposes
     countIncreased(state) {
+      // We know that useSelector will re-run every time an action is dispatched and
+      // that it forces the component to re-render if we return a new reference value
       state.count++;
     },
   },

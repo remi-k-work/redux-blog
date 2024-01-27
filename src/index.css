@@ -4,6 +4,8 @@
 /* optional imports that use the props */
 @import "https://unpkg.com/open-props/normalize.min.css";
 @import "https://unpkg.com/open-props/buttons.min.css";
+@import "https://unpkg.com/open-props/masks.corner-cuts.min.css";
+@import "https://unpkg.com/open-props/masks.edges.min.css";
 
 :root {
   color-scheme: dark;
@@ -22,6 +24,8 @@
   /* form validation colors */
   --form-field-alert-bg-light: var(--red-12);
   --form-field-alert-tx-light: var(--yellow-9);
+  /* gradients */
+  --heading-gradient-1-light: var(--gradient-1);
 
   /* dark */
   --brand-dark: var(--orange-3);
@@ -37,6 +41,8 @@
   /* form validation colors */
   --form-field-alert-bg-dark: var(--yellow-9);
   --form-field-alert-tx-dark: var(--red-12);
+  /* gradients */
+  --heading-gradient-1-dark: var(--gradient-23);
 
   /* set defaults */
   --brand: var(--brand-dark);
@@ -50,6 +56,7 @@
   --surface-4: var(--surface-4-dark);
   --form-field-alert-bg: var(--form-field-alert-bg-dark);
   --form-field-alert-tx: var(--form-field-alert-tx-dark);
+  --heading-gradient-1: var(--heading-gradient-1-dark);
 }
 
 body {

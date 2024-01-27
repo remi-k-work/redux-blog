@@ -3,7 +3,97 @@
   padding-block: var(--size-3) var(--size-3);
 }
 
-.top3-users {
+.home__dashboard {
+  display: grid;
+  gap: var(--size-8);
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-1)), 1fr));
+}
+
+.most-active-users {
+  max-inline-size: var(--size-content-1);
   display: grid;
   gap: var(--size-4);
+  place-items: center;
+  background: var(--surface-2);
+  -webkit-mask: var(--mask-corner-cut-circles-1);
+}
+
+.most-active-users > h4 {
+  place-self: stretch;
+  max-inline-size: var(--size-header-1);
+  background-image: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  text-align: center;
+  box-shadow: var(--shadow-6);
+}
+
+.total-posts {
+  max-inline-size: var(--size-content-1);
+  display: grid;
+  gap: var(--size-4);
+  place-items: center;
+  background: var(--surface-2);
+  -webkit-mask: var(--mask-corner-cut-circles-1);
+}
+
+.total-posts > h4 {
+  place-self: stretch;
+  max-inline-size: var(--size-header-1);
+  background-image: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  text-align: center;
+  box-shadow: var(--shadow-6);
+}
+
+.total-posts > h5 {
+  font-size: var(--font-size-6);
+}
+
+.total-users {
+  max-inline-size: var(--size-content-1);
+  display: grid;
+  gap: var(--size-4);
+  place-items: center;
+  background: var(--surface-2);
+  -webkit-mask: var(--mask-corner-cut-circles-1);
+}
+
+.total-users > h4 {
+  place-self: stretch;
+  max-inline-size: var(--size-header-1);
+  background-image: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  text-align: center;
+  box-shadow: var(--shadow-6);
+}
+
+.total-users > h5 {
+  font-size: var(--font-size-6);
+}
+
+.latest-posts {
+  max-inline-size: var(--size-content-1);
+  display: grid;
+  gap: var(--size-4);
+  place-items: center;
+  background: var(--surface-2);
+  -webkit-mask: var(--mask-corner-cut-circles-1);
+}
+
+.latest-posts > h4 {
+  place-self: stretch;
+  max-inline-size: var(--size-header-1);
+  background-image: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  text-align: center;
+  box-shadow: var(--shadow-6);
 }

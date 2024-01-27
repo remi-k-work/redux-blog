@@ -16,24 +16,28 @@
 .post-excerpt__title {
   max-inline-size: var(--size-content-3);
   font-family: var(--font-serif);
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-2);
+  overflow: hidden;
 }
 
 .post-excerpt__content {
+  max-inline-size: var(--size-content-3);
   background: var(--surface-4);
   color: var(--text-2);
   font-family: var(--font-serif);
-  font-size: var(--font-size-3);
   padding-inline: var(--size-3);
   padding-block: var(--size-3);
   border-radius: var(--radius-3);
   box-shadow: var(--inner-shadow-4);
+  white-space: pre-wrap;
+  white-space: break-spaces;
+  overflow: hidden;
 }
 
 .post-excerpt__credit {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
-  gap: var(--size-5);
+  grid-template-columns: 1fr auto auto;
+  gap: var(--size-4);
 }
 
 .post-excerpt__view-post {

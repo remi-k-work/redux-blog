@@ -1,5 +1,5 @@
-.single-post-view {
-  max-inline-size: var(--size-content-3);
+.post-preview {
+  max-inline-size: var(--size-content-1);
   margin-inline: auto;
 
   background: var(--surface-2);
@@ -13,19 +13,11 @@
   box-shadow: var(--shadow-6);
 }
 
-.single-post-view__title {
-  max-inline-size: var(--size-content-3);
-  font-family: var(--font-serif);
-  font-size: var(--font-size-3);
-  overflow: hidden;
-}
-
-.single-post-view__content {
-  max-inline-size: var(--size-content-3);
+.post-preview__content {
+  max-inline-size: var(--size-content-1);
   background: var(--surface-4);
   color: var(--text-2);
   font-family: var(--font-serif);
-  font-size: var(--font-size-2);
   padding-inline: var(--size-3);
   padding-block: var(--size-3);
   border-radius: var(--radius-3);
@@ -33,17 +25,12 @@
   white-space: pre-wrap;
   white-space: break-spaces;
   overflow: hidden;
+  -webkit-mask: var(--mask-edge-scoop-right);
 }
 
-.single-post-view__credit {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: var(--size-4);
-}
-
-.single-post-view__edit-post {
-  place-self: center end;
+.post-preview__view-post {
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: var(--size-1);
 }
