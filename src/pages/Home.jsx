@@ -26,19 +26,18 @@ export default function Home() {
 
   return (
     <article className={styles["home"]}>
-      <header className={styles["home__hero"]}>
-        <h3>What is on your mind today?</h3>
-        <section>
-          <img src={blogger} width={591} height={640} alt="Blogger" />
-          <p>
-            Let your thoughts take flight and join our vibrant blogging community. Unleash your creativity and connect with like-minded individuals. Have a
-            story to tell? An idea that's bubbling up inside? Our platform provides a space for you to express yourself freely and connect with others who share
-            your passions.
-          </p>
-        </section>
+      <h3>What is on your mind today?</h3>
+
+      <header className={styles["hero"]}>
+        <img src={blogger} width={591} height={640} alt="Blogger" />
+        <p>
+          Let your thoughts take flight and join our vibrant blogging community. Unleash your creativity and connect with like-minded individuals. Have a story
+          to tell? An idea that's bubbling up inside? Our platform provides a space for you to express yourself freely and connect with others who share your
+          passions.
+        </p>
       </header>
 
-      <article className={styles["home__dashboard"]}>
+      <article className={styles["dashboard"]}>
         <section className={styles["dashboard__most-active-users"]}>
           <h4>Most Active Users</h4>
           {postsPerUserId.slice(0, 3).map((data) => {

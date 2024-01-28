@@ -10,8 +10,9 @@ import { postsPaginated } from "../postsSlice";
 
 // components
 import PostExcerpt from "./PostExcerpt";
-import SearchPanel from "../../search/components/SearchPanel";
+import SearchPanel from "../../../components/SearchPanel";
 import Paginate from "../../../components/Paginate";
+import NotFound from "../../../components/NotFound";
 
 export default function PostsList() {
   // Global state & dispatch coming from redux
@@ -29,11 +30,15 @@ export default function PostsList() {
 
   let content;
   if (postsStatus === "loading") {
-    content = <h3>Loading...</h3>;
+    content = <NotFound message={"Loading..."} />;
   } else if (postsStatus === "succeeded") {
-    content = viewedPostsIds.map((postId) => <PostExcerpt key={postId} postId={postId} />);
+    if (totalItems > 0) {
+      content = viewedPostsIds.map((postId) => <PostExcerpt key={postId} postId={postId} />);
+    } else {
+      content = <NotFound message={"Posts were not found!"} />;
+    }
   } else if (postsStatus === "failed") {
-    content = <h3>{postsError}</h3>;
+    content = <NotFound message={postsError} />;
   }
 
   return (

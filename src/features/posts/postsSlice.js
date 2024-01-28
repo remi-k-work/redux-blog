@@ -1,8 +1,9 @@
 // redux stuff
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter, original, current } from "@reduxjs/toolkit";
 
 // posts logic & slice
 import { fetchPosts, addNewPost, updatePost, deletePost } from "./postsThunks";
+import { locSelectAllPostsForUser, postsLocalSelectors } from "./postsSelectors";
 
 // other libraries
 import { sub } from "date-fns";
@@ -12,9 +13,6 @@ export const postsAdapter = createEntityAdapter({
   // Sort posts in reverse chronological order using a datetime string
   sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
-
-// "Unglobalized" set of selector functions from the entity adapter
-const postsLocalSelectors = postsAdapter.getSelectors();
 
 const initialState = postsAdapter.getInitialState({
   // Found posts narrowed by search only
@@ -128,7 +126,11 @@ const postsSlice = createSlice({
           },
         };
       });
-      postsAdapter.setAll(state, validPosts);
+
+      // Each person has exactly ten postings, which is dull; again, randomize it a little to make it appear more alive
+      const randomizedPosts = validPosts.filter(() => Math.floor(Math.random() * 2) !== 1);
+
+      postsAdapter.setAll(state, randomizedPosts);
 
       // The found posts are identical to the fetched posts in the beginning
       state.foundPostsIds = state.ids;

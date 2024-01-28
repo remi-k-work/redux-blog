@@ -20,10 +20,16 @@ export const {
   // Pass in a selector that returns the posts slice of state
 } = postsAdapter.getSelectors((state) => state.posts);
 
+// "Unglobalized" set of selector functions from the entity adapter
+export const postsLocalSelectors = postsAdapter.getSelectors();
+
 // Select all posts for a specific user
 export const selectAllPostsForUser = createSelector([selectAllPosts, (state, userId) => userId], (posts, userId) =>
   posts.filter((post) => post.userId === Number(userId))
 );
+
+// Select all posts for a specific user ("Unglobalized")
+export const locSelectAllPostsForUser = (state, userId) => postsLocalSelectors.selectAll(state).filter((post) => post.userId === Number(userId));
 
 // Get currently viewed posts (narrowed by search and pagination)
 export const getViewedPostsIds = (state) => state.posts.viewedPostsIds;

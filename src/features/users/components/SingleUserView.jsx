@@ -16,17 +16,16 @@ import { selectAllPostsForUser } from "../../posts/postsSelectors";
 // other libraries
 import { AtSymbolIcon, GlobeAltIcon, HomeIcon, PencilSquareIcon, PhoneIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
+// components
+import NotFound from "../../../components/NotFound";
+
 export default function SingleUserView({ userId }) {
   // Global state & dispatch coming from redux
   const user = useSelector((state) => selectUserById(state, userId));
   const postsForUser = useSelector((state) => selectAllPostsForUser(state, userId));
 
   if (!user) {
-    return (
-      <article>
-        <h3>User not found!</h3>
-      </article>
-    );
+    return <NotFound message={"User not found!"} />;
   }
 
   const postTitles = postsForUser.map((post) => {

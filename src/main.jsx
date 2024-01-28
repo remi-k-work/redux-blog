@@ -14,8 +14,8 @@ import { fetchPosts } from "./features/posts/postsThunks.js";
 import { fetchUsers } from "./features/users/usersThunks.js";
 
 // We only need to obtain the list of users once, and we want to do it when the program starts
-store.dispatch(fetchPosts());
 store.dispatch(fetchUsers());
+store.dispatch(fetchPosts());
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -3,18 +3,19 @@
   padding-block: var(--size-3) var(--size-3);
 }
 
-.home__hero img {
+.hero > p {
+  color: var(--text-2);
+}
+
+.hero > img {
   inline-size: var(--size-fluid-9);
   float: inline-start;
   shape-outside: circle(50%);
-  border-start-start-radius: 50%;
-  border-start-end-radius: 50%;
-  border-end-start-radius: 50%;
-  border-end-end-radius: 50%;
   margin-inline: 0 var(--size-3);
 }
 
-.home__dashboard {
+.dashboard {
+  clear: inline-start;
   display: grid;
   gap: var(--size-8);
   place-items: center;

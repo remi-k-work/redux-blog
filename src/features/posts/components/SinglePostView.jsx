@@ -17,17 +17,14 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
+import NotFound from "../../../components/NotFound";
 
 export default function SinglePostView({ postId }) {
   // Global state & dispatch coming from redux
   const post = useSelector((state) => selectPostById(state, postId));
 
   if (!post) {
-    return (
-      <article>
-        <h3>Post not found!</h3>
-      </article>
-    );
+    return <NotFound message={"Post not found!"} />;
   }
 
   const { id, title, content, userId, date } = post;

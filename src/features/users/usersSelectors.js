@@ -16,3 +16,6 @@ export const {
 
   // Pass in a selector that returns the users slice of state
 } = usersAdapter.getSelectors((state) => state.users);
+
+// "Unglobalized" set of selector functions from the entity adapter
+export const usersLocalSelectors = usersAdapter.getSelectors();

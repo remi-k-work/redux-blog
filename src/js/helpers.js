@@ -11,3 +11,9 @@ export async function waait() {
 export async function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+// Simulate a computationally expensive operation
+export function compute(ms) {
+  const startTime = performance.now();
+  while (performance.now() - startTime < ms) {}
+}

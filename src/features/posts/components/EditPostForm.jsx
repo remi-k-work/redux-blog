@@ -24,6 +24,7 @@ import { HandThumbUpIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/2
 import FormTextField from "../../../components/FormTextField";
 import FormSelectField from "../../../components/FormSelectField";
 import FormTextArea from "../../../components/FormTextArea";
+import NotFound from "../../../components/NotFound";
 
 export default function EditPostForm({ postId }) {
   // Global state & dispatch coming from redux
@@ -41,9 +42,7 @@ export default function EditPostForm({ postId }) {
   } = useForm({ resolver: zodResolver(validationSchema) });
 
   return !post ? (
-    <article>
-      <h3>Post not found!</h3>
-    </article>
+    <NotFound message={"Post not found!"} />
   ) : (
     <section className={styles["edit-post-form"]}>
       <h3>
