@@ -21,7 +21,7 @@ export default function BreadCrumbs() {
     <h2 className={styles["bread-crumbs"]}>
       {crumbs.map((crumb, index) => (
         <span key={index} className={styles["bread-crumbs__crumb"]}>
-          <ChevronRightIcon width={48} height={48} />
+          <ChevronRightIcon width={24} height={24} />
           {crumb}
         </span>
       ))}

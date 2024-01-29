@@ -1,6 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+
+/* the props */
+import "open-props/style";
+
+/* optional imports that use the props */
+import "open-props/normalize";
+import "open-props/buttons";
+import "open-props/masks/edges";
+import "open-props/masks/corner-cuts";
+
 import "./index.css";
 
 // redux store and its provider for react

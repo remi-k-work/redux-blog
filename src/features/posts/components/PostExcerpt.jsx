@@ -40,7 +40,7 @@ export default function PostExcerpt({ postId }) {
         <TimeAgo timestamp={date} />
         <Link className={styles["post-excerpt__view-post"]} to={`/posts/${id}`}>
           <EyeIcon width={24} height={24} />
-          View
+          View Post
         </Link>
       </section>
       <ReactionButtons post={post} />

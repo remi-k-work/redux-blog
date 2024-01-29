@@ -31,7 +31,7 @@ export default function PostPreview({ postId }) {
       <p className={styles["post-preview__content"]}>{content.substring(0, 50)}...</p>
       <Link className={styles["post-preview__view-post"]} to={`/posts/${id}`}>
         <EyeIcon width={24} height={24} />
-        View
+        View Post
       </Link>
     </article>
   );

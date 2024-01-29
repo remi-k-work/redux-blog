@@ -38,7 +38,7 @@ export default function SinglePostView({ postId }) {
         <TimeAgo timestamp={date} />
         <Link className={styles["single-post-view__edit-post"]} to={`/posts/edit/${id}`}>
           <PencilIcon width={24} height={24} />
-          Edit
+          Edit Post
         </Link>
       </section>
       <ReactionButtons post={post} />
