@@ -1,5 +1,5 @@
 // rrd imports
-import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider, Navigate } from "react-router-dom";
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider, Navigate, Link } from "react-router-dom";
 
 // other libraries
 import { ToastContainer } from "react-toastify";
@@ -19,36 +19,25 @@ import { default as RootLayout } from "./layouts/Root";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    // <Route element={<RootLayout />}>
-    //   <Route index element={<Home />} handle={{ crumb: () => <Link to="/">Home</Link> }} />
-
-    //   <Route path="posts">
-    //     <Route index element={<ViewAllPosts />} />
-    //     <Route path=":postId" element={<ViewPostDetails />} />
-    //     <Route path="create" element={<CreateNewPost />} action={createNewPostAction} />
-    //     <Route path="edit/:postId" element={<EditCurrentPost />} action={editCurrentPostAction} />
-    //   </Route>
-
-    //   <Route path="users">
-    //     <Route index element={<ViewAllUsers />} />
-    //     <Route path=":userId" element={<ViewUserDetails />} />
-    //   </Route>
-
-    //   {/* Catch all; replace with a 404 page if desired */}
-    //   <Route path="*" element={<Navigate to="/" replace />} />
-    // </Route>
-
     <Route element={<RootLayout />}>
-      <Route index element={<Home />} handle={"Home"} />
-      <Route path="posts" element={<ViewAllPosts />} handle={"View All Posts"}>
-        <Route path="/posts/:postId" element={<ViewPostDetails />} handle={"Post Details"} />
-        <Route path="/posts/create" element={<CreateNewPost />} action={createNewPostAction} handle={"Create New Post"} />
-        <Route path="/posts/edit/:postId" element={<EditCurrentPost />} action={editCurrentPostAction} handle={"Edit Current Post"} />
-      </Route>
+      <Route path="/" handle={{ crumb: (to) => <Link to={to}>Home</Link> }}>
+        <Route index element={<Home />} />
+        <Route path="posts" handle={{ crumb: (to) => <Link to={to}>View All Posts</Link> }}>
+          <Route index element={<ViewAllPosts />} />
+          <Route path=":postId" element={<ViewPostDetails />} handle={{ crumb: (to) => <Link to={to}>View Post Details</Link> }} />
+          <Route path="create" element={<CreateNewPost />} action={createNewPostAction} handle={{ crumb: (to) => <Link to={to}>Create a New Post</Link> }} />
+          <Route
+            path="edit/:postId"
+            element={<EditCurrentPost />}
+            action={editCurrentPostAction}
+            handle={{ crumb: (to) => <Link to={to}>Edit Current Post</Link> }}
+          />
+        </Route>
 
-      <Route path="users">
-        <Route index element={<ViewAllUsers />} />
-        <Route path=":userId" element={<ViewUserDetails />} />
+        <Route path="users" handle={{ crumb: (to) => <Link to={to}>View All Users</Link> }}>
+          <Route index element={<ViewAllUsers />} />
+          <Route path=":userId" element={<ViewUserDetails />} handle={{ crumb: (to) => <Link to={to}>View User Details</Link> }} />
+        </Route>
       </Route>
 
       {/* Catch all; replace with a 404 page if desired */}

@@ -2,24 +2,22 @@
 import styles from "./Root.module.css";
 
 // rrd imports
-import { Outlet, ScrollRestoration, useMatches } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 
 // components
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import BreadCrumbs from "../components/BreadCrumbs";
 
 export default function Root() {
-  const matches = useMatches();
-
-  console.log(matches);
-
   return (
     <div className={styles["root"]}>
       <Header />
       <NavBar />
       <main>
         <ScrollRestoration />
+        <BreadCrumbs />
         <Outlet />
       </main>
       <Footer />

@@ -15,12 +15,12 @@ export default function Header() {
 
   return (
     <header className={styles["header"]}>
-      <h1>WordWave</h1>
+      <h1>Word Wave</h1>
 
       {/* Used for optimization purposes */}
-      <button type="button" onClick={() => dispatch(countIncreased())}>
+      {/* <button type="button" onClick={() => dispatch(countIncreased())}>
         {count}
-      </button>
+      </button> */}
     </header>
   );
 }

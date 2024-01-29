@@ -2,10 +2,22 @@
   grid-area: header;
   display: flex;
   gap: var(--size-3);
+  align-items: center;
+  text-align: end;
   background: var(--surface-2);
   color: var(--brand);
   padding-inline: var(--size-3);
   padding-block: var(--size-3);
   position: sticky;
   inset-block-start: 0;
+  z-index: 2;
+}
+
+/* || MEDIA QUERIES */
+
+/* X-Small devices (portrait phones, less than 576px) */
+@media screen and (max-width: 575.98px) {
+  .header {
+    border-block-end: var(--border-size-4) solid var(--surface-1);
+  }
 }
