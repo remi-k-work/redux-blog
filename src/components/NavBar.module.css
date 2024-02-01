@@ -4,6 +4,18 @@
   z-index: 2;
 }
 
+.navbar__view-all-posts::before {
+  content: "View All Posts";
+}
+
+.navbar__create-a-new-post::before {
+  content: "Create a New Post";
+}
+
+.navbar__view-all-users::before {
+  content: "View All Users";
+}
+
 .navbar__list {
   margin: 0;
   padding: 0;
@@ -86,7 +98,25 @@
     position: static;
   }
 
+  .navbar__link {
+    padding-block: var(--size-2);
+    padding-inline: var(--size-3);
+    margin-inline: var(--size-1) 0;
+  }
+
   .navbar__link--active::after {
     box-shadow: -5px 5px 0 5px var(--surface-1);
+  }
+
+  .navbar__view-all-posts::before {
+    content: "Posts";
+  }
+
+  .navbar__create-a-new-post::before {
+    content: "Post";
+  }
+
+  .navbar__view-all-users::before {
+    content: "Users";
   }
 }
