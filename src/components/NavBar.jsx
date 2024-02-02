@@ -29,22 +29,22 @@ export default function NavBar() {
     <nav className={styles["navbar"]}>
       <ul className={styles["navbar__list"]}>
         <li>
-          <NavLink className={navLinkClassName} unstable_viewTransition end to="/">
+          <NavLink className={navLinkClassName} end to="/">
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink className={navLinkClassNamePosts} unstable_viewTransition to="posts">
+          <NavLink className={navLinkClassNamePosts} to="posts">
             <span className={styles["navbar__view-all-posts"]}></span>
           </NavLink>
         </li>
         <li>
-          <NavLink className={navLinkClassName} unstable_viewTransition end to="posts/create">
+          <NavLink className={navLinkClassName} end to="posts/create">
             <span className={styles["navbar__create-a-new-post"]}></span>
           </NavLink>
         </li>
         <li>
-          <NavLink className={navLinkClassName} unstable_viewTransition to="users">
+          <NavLink className={navLinkClassName} to="users">
             <span className={styles["navbar__view-all-users"]}></span>
           </NavLink>
         </li>

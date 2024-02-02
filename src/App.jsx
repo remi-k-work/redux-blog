@@ -22,21 +22,16 @@ const router = createBrowserRouter(
     <Route element={<RootLayout />}>
       <Route path="/" handle={{ crumb: (to) => <Link to={to}>Home</Link> }}>
         <Route index element={<Home />} />
-        <Route path="posts" handle={{ crumb: (to) => <Link to={to}>View All Posts</Link> }}>
+        <Route path="posts" handle={{ crumb: (to) => <Link to={to}>All Posts</Link> }}>
           <Route index element={<ViewAllPosts />} />
-          <Route path=":postId" element={<ViewPostDetails />} handle={{ crumb: (to) => <Link to={to}>View Post Details</Link> }} />
-          <Route path="create" element={<CreateNewPost />} action={createNewPostAction} handle={{ crumb: (to) => <Link to={to}>Create a New Post</Link> }} />
-          <Route
-            path="edit/:postId"
-            element={<EditCurrentPost />}
-            action={editCurrentPostAction}
-            handle={{ crumb: (to) => <Link to={to}>Edit Current Post</Link> }}
-          />
+          <Route path=":postId" element={<ViewPostDetails />} handle={{ crumb: (to) => <Link to={to}>Post Details</Link> }} />
+          <Route path="create" element={<CreateNewPost />} action={createNewPostAction} handle={{ crumb: (to) => <Link to={to}>New Post</Link> }} />
+          <Route path="edit/:postId" element={<EditCurrentPost />} action={editCurrentPostAction} handle={{ crumb: (to) => <Link to={to}>Edit Post</Link> }} />
         </Route>
 
-        <Route path="users" handle={{ crumb: (to) => <Link to={to}>View All Users</Link> }}>
+        <Route path="users" handle={{ crumb: (to) => <Link to={to}>All Users</Link> }}>
           <Route index element={<ViewAllUsers />} />
-          <Route path=":userId" element={<ViewUserDetails />} handle={{ crumb: (to) => <Link to={to}>View User Details</Link> }} />
+          <Route path=":userId" element={<ViewUserDetails />} handle={{ crumb: (to) => <Link to={to}>User Details</Link> }} />
         </Route>
       </Route>
 
