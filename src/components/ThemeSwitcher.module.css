@@ -1,6 +1,11 @@
 .theme-switcher {
-  padding-inline: var(--size-1);
-  padding-block: var(--size-1);
+  margin-inline: 0;
+  padding-inline: 0;
+  align-self: start;
+}
+.theme-switcher button {
+  margin-inline: 0;
+  padding-inline: 0;
 }
 
 .theme-switcher svg {

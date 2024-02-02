@@ -20,6 +20,7 @@ export default function Header() {
     <header className={styles["header"]}>
       <h1>Word Wave</h1>
       <ThemeSwitcher />
+
       {/* Used for optimization purposes */}
       {/* <button type="button" onClick={() => dispatch(countIncreased())}>
         {count}
