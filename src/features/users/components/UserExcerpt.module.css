@@ -1,4 +1,5 @@
 .user-excerpt {
+  inline-size: 100%;
   max-inline-size: var(--size-content-1);
   margin-inline: auto;
 

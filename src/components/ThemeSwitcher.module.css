@@ -1,0 +1,8 @@
+.theme-switcher {
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
+}
+
+.theme-switcher svg {
+  max-inline-size: none;
+}

@@ -8,6 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPostsCount } from "../features/posts/postsSelectors";
 import { countIncreased } from "../features/posts/postsSlice";
 
+// components
+import ThemeSwitcher from "./ThemeSwitcher";
+
 export default function Header() {
   // Global state & dispatch coming from redux
   const count = useSelector(getPostsCount);
@@ -16,7 +19,7 @@ export default function Header() {
   return (
     <header className={styles["header"]}>
       <h1>Word Wave</h1>
-
+      <ThemeSwitcher />
       {/* Used for optimization purposes */}
       {/* <button type="button" onClick={() => dispatch(countIncreased())}>
         {count}

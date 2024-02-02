@@ -1,6 +1,4 @@
 :root {
-  color-scheme: dark;
-
   /* light */
   --brand-light: var(--orange-6);
   --link-light: var(--indigo-7);
@@ -16,8 +14,8 @@
   --form-field-alert-bg-light: var(--red-12);
   --form-field-alert-tx-light: var(--yellow-9);
   /* gradients */
-  --heading-gradient-1-light: var(--gradient-1);
-  --dashboard-gradient-light: var(--gradient-6);
+  --heading-gradient-1-light: var(--gradient-5);
+  --dashboard-gradient-light: var(--gradient-15);
 
   /* dark */
   --brand-dark: var(--orange-3);
@@ -36,8 +34,49 @@
   /* gradients */
   --heading-gradient-1-dark: var(--gradient-23);
   --dashboard-gradient-dark: var(--gradient-16);
+}
 
-  /* set defaults */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand: var(--brand-dark);
+    --link: var(--link-dark);
+    --link-visited: var(--link-visited-dark);
+    --text-1: var(--text-1-dark);
+    --text-2: var(--text-2-dark);
+    --surface-1: var(--surface-1-dark);
+    --surface-2: var(--surface-2-dark);
+    --surface-3: var(--surface-3-dark);
+    --surface-4: var(--surface-4-dark);
+    --form-field-alert-bg: var(--form-field-alert-bg-dark);
+    --form-field-alert-tx: var(--form-field-alert-tx-dark);
+    --heading-gradient-1: var(--heading-gradient-1-dark);
+    --dashboard-gradient: var(--dashboard-gradient-dark);
+
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --brand: var(--brand-light);
+    --link: var(--link-light);
+    --link-visited: var(--link-visited-light);
+    --text-1: var(--text-1-light);
+    --text-2: var(--text-2-light);
+    --surface-1: var(--surface-1-light);
+    --surface-2: var(--surface-2-light);
+    --surface-3: var(--surface-3-light);
+    --surface-4: var(--surface-4-light);
+    --form-field-alert-bg: var(--form-field-alert-bg-light);
+    --form-field-alert-tx: var(--form-field-alert-tx-light);
+    --heading-gradient-1: var(--heading-gradient-1-light);
+    --dashboard-gradient: var(--dashboard-gradient-light);
+
+    color-scheme: light;
+  }
+}
+
+:root[color-scheme="dark"] {
   --brand: var(--brand-dark);
   --link: var(--link-dark);
   --link-visited: var(--link-visited-dark);
@@ -51,6 +90,26 @@
   --form-field-alert-tx: var(--form-field-alert-tx-dark);
   --heading-gradient-1: var(--heading-gradient-1-dark);
   --dashboard-gradient: var(--dashboard-gradient-dark);
+
+  color-scheme: dark;
+}
+
+:root[color-scheme="light"] {
+  --brand: var(--brand-light);
+  --link: var(--link-light);
+  --link-visited: var(--link-visited-light);
+  --text-1: var(--text-1-light);
+  --text-2: var(--text-2-light);
+  --surface-1: var(--surface-1-light);
+  --surface-2: var(--surface-2-light);
+  --surface-3: var(--surface-3-light);
+  --surface-4: var(--surface-4-light);
+  --form-field-alert-bg: var(--form-field-alert-bg-light);
+  --form-field-alert-tx: var(--form-field-alert-tx-light);
+  --heading-gradient-1: var(--heading-gradient-1-light);
+  --dashboard-gradient: var(--dashboard-gradient-light);
+
+  color-scheme: light;
 }
 
 body {
@@ -68,4 +127,11 @@ body {
 #root {
   min-block-size: 100cqb;
   display: flex;
+}
+
+/* fix for open-props normalize */
+select,
+textarea,
+input {
+  background: var(--surface-1);
 }

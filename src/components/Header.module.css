@@ -1,8 +1,9 @@
 .header {
   grid-area: header;
   display: flex;
+  gap: var(--size-3);
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
   text-align: end;
   background: var(--surface-2);
   color: var(--brand);
@@ -15,10 +16,10 @@
 
 /* || MEDIA QUERIES */
 
-/* X-Small devices (portrait phones, less than 576px) */
-@media screen and (max-width: 575.98px) {
+/* Small devices (landscape phones, less than 768px) */
+@media screen and (max-width: 767.98px) {
   .header {
-    padding-inline: var(--size-1);
+    padding-inline: var(--size-3);
     padding-block: var(--size-1);
     border-block-end: var(--border-size-4) solid var(--surface-1);
   }
